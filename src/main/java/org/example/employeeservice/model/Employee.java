@@ -6,7 +6,7 @@ import lombok.*;
 
 @Entity
 @Data
-public class Employee {
+public class Employee { //КЛАСС СОТРУДНИКОВ
     @Id
     @GeneratedValue
 
