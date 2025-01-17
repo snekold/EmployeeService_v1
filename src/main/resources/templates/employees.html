@@ -65,7 +65,7 @@
             <th>Имя сотрудника</th>
             <th>Должость</th>
             <th>Зарплата</th>
-            <th>Призедент компании</th>
+            <th>Компания</th>
         </tr>
         </thead>
         <tbody>
@@ -75,7 +75,7 @@
             <td th:text="${employee.name}"></td>
             <td th:text="${employee.jobTitle}"></td>
             <td th:text="${employee.salary}"></td>
-            <td th:text="${employee.getName_president()}"></td>
+            <td th:text="${employee.company.name}"></td>
         </tr>
         </tbody>
     </table>

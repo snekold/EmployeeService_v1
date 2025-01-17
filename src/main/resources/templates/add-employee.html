@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #dacf88;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -60,6 +60,9 @@
             cursor: pointer;
             font-size: 16px;
         }
+        .error{
+            color: darkred;
+        }
 
         .submit-button:hover {
             background-color: #218838;
@@ -73,21 +76,28 @@
     <form th:action="@{/employees/add}" method="post">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter employee name" required>
+            <input type="text" id="name" name="name" placeholder="Имя сотрудника" required>
         </div>
         <div class="form-group">
             <label for="jobTitle">Job Title</label>
-            <input type="text" id="jobTitle" name="jobTitle" placeholder="Enter job title" required>
+            <input type="text" id="jobTitle" name="jobTitle" placeholder="Должность" required>
         </div>
         <div class="form-group">
-            <label for="name_president">Имя Президента компании</label>
-            <input type="text" id="name_president" name="name_president" placeholder="Enter name_president" required>
+            <label for="name_company">Компания</label>
+            <input type="text" id="name_company" name="name_company" placeholder="Компания" required>
         </div>
+
+        <div class="form-group">
+            <label for="password_company">Пароль Компании</label>
+            <input type="text" id="password_company" name="password_company" placeholder="Ваш пароль компании" required>
+        </div>
+
+
         <div class="form-group">
             <button type="submit" class="submit-button">Add Employee</button>
         </div>
 
-        <div>
+        <div class="error">
             <label th:text="${message}"></label>
         </div>
 
