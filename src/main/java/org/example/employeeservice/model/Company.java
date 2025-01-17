@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-public class Company {
+public class Company { //class для компаний
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
