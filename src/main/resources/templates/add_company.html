@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Company</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .menu {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding-top: 20px;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #575757;
+        }
+
+        .content {
+            margin-right: 200px;
+            padding: 20px;
+            width: calc(100% - 200px);
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        form h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        form button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .message{
+            color: #218838;
+        }
+
+        form button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+
+    <form th:action="@{/company/addCompany}" method="post">
+        <h2>Add New Company</h2>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="president">President:</label>
+        <input type="text" id="president" name="president" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <div class="button-container">
+            <button type="submit">Add Company</button>
+        </div>
+
+        <div class="message" th:if="${isAdd}" >
+            <span> Компания добавленна </span>
+        </div>
+
+    </form>
+</div>
+
+<div class="menu">
+    <a href="#">Page 1</a>
+    <a href="#">Page 2</a>
+    <a href="#">Page 3</a>
+    <a href="#">Page 4</a>
+</div>
+
+</body>
+</html>
