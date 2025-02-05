@@ -6,6 +6,7 @@ import org.example.employeeservice.model.Company;
 import org.example.employeeservice.model.Employee;
 import org.example.employeeservice.repository.CompanyRepository;
 import org.example.employeeservice.repository.EmployeeRepository;
+import org.example.employeeservice.repository.RobberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-
+    @Autowired
+    private RobberRepository robberRepository;
 
     @GetMapping("/employees/add")
     public String addEmployees() {
@@ -55,6 +57,7 @@ public class EmployeeController {
 
         employee.setCompany(company);
         employeeRepository.save(employee);
+        employeeRepository.save(robber);
 
         return "add-employees";
     }
