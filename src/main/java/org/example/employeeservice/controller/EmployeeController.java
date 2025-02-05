@@ -36,12 +36,7 @@ public class EmployeeController {
                               Model model
 
     ) {
-        Employee employee = new Employee();
-        employee.setName(name);
-        employee.setJobTitle(jobTitle);
-
         Company company = companyRepository.findByName(name_company);
-
         if (company == null) {
             model.addAttribute("message", "Company not found");
             return "add-employees";
@@ -52,9 +47,25 @@ public class EmployeeController {
             return "add-employees";
         }
 
+        if (company.getCountAddEmployeeThisDay() >= 3){
+            model.addAttribute("message", "Вы добавили уже сегодня 3 сотрудников.Не нарушайте!");
+            return "add-employees";
+        }
+
+
+        Employee employee = new Employee();
+        employee.setName(name);
+        employee.setJobTitle(jobTitle);
 
         employee.setCompany(company);
+
+        //прибавить 1 к добавленным сотрудникам за текущий день (нужно для проверки лимита 3 сотрудника в день)
+        company.setCountAddEmployeeThisDay(company.getCountAddEmployeeThisDay()+1);
+
+
+        companyRepository.save(company);
         employeeRepository.save(employee);
+
         return "add-employees";
     }
 
