@@ -2,45 +2,22 @@ package org.example.employeeservice.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Robber {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
     private int stillSum;
     private int balance;
 
-    public Robber(String name, int stillSum, int balance) {
-        this.name = name;
-        this.stillSum = stillSum;
-        this.balance = balance;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getStillSum() {
-        return stillSum;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setStillSum(int stillSum) {
-        this.stillSum = stillSum;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
 }

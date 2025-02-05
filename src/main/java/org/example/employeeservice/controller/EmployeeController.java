@@ -21,8 +21,6 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
-    @Autowired
-    private RobberRepository robberRepository;
 
     @GetMapping("/employees/add")
     public String addEmployees() {
@@ -57,8 +55,6 @@ public class EmployeeController {
 
         employee.setCompany(company);
         employeeRepository.save(employee);
-        employeeRepository.save(robber);
-
         return "add-employees";
     }
 
