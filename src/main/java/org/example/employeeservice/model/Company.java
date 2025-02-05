@@ -19,6 +19,7 @@ public class Company { //class для компаний
     private String president;
     private int countAddEmployeeThisDay;
     private String password;
+    private long balance;
 
     @OneToMany(mappedBy = "company",fetch = FetchType.EAGER)
     private List<Employee> employees = new ArrayList<>();

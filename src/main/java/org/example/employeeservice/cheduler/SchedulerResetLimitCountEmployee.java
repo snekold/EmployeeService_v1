@@ -15,7 +15,6 @@ public class SchedulerResetLimitCountEmployee {
 
     @Scheduled(cron = "0 * * * * * ?")
     public void reset(){
-
     }
 
 
