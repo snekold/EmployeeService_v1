@@ -6,7 +6,6 @@ import org.example.employeeservice.model.Company;
 import org.example.employeeservice.model.Employee;
 import org.example.employeeservice.repository.CompanyRepository;
 import org.example.employeeservice.repository.EmployeeRepository;
-import org.example.employeeservice.repository.RobberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +23,7 @@ public class EmployeeController {
 
     @GetMapping("/employees/add")
     public String addEmployees() {
-        return "add-employees";
+        return "add-employee";
     }
 
 
@@ -36,20 +35,21 @@ public class EmployeeController {
                               Model model
 
     ) {
+        System.out.println(name_company);
         Company company = companyRepository.findByName(name_company);
         if (company == null) {
             model.addAttribute("message", "Company not found");
-            return "add-employees";
+            return "add-employee";
         }
 
         if (!password_company.equals(company.getPassword())) {
             model.addAttribute("message", "Password do not match");
-            return "add-employees";
+            return "add-employee";
         }
 
         if (company.getCountAddEmployeeThisDay() >= 3){
             model.addAttribute("message", "Вы добавили уже сегодня 3 сотрудников.Не нарушайте!");
-            return "add-employees";
+            return "add-employee";
         }
 
 
@@ -66,7 +66,7 @@ public class EmployeeController {
         companyRepository.save(company);
         employeeRepository.save(employee);
 
-        return "add-employees";
+        return "add-employee";
     }
 
 
