@@ -13,7 +13,7 @@ public class SchedulerResetLimitCountEmployee {
     @Autowired
     private CompanyService companyService;
 
-    @Scheduled(cron = "0 * * * * * ?")
+    @Scheduled(cron = "0 * * * *  ?")
     public void reset(){
     }
 
