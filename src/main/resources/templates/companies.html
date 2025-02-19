@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Компании</title>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .title {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        /* Стили таблицы */
+        .company-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .company-table th,
+        .company-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .company-table th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .company-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Дополнительные стили */
+        .company-table td:nth-child(1) {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="title">Список компаний</h1>
+    <table class="company-table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Название компании</th>
+            <th>Президент</th>
+            <th>Баланс</th>
+            <th>Количество сотрудников</th>
+            <th>Количество роботов</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="company, iterStat : ${companies}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${company.name}"></td>
+            <td th:text="${company.president}"></td>
+            <td th:text="${company.balance} + ' ₽'"></td>
+            <td th:text="${company.employees.size()}"></td>
+            <td th:text="${company.robots.size()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
