@@ -15,12 +15,11 @@ public class RobberSerivce {
 
     @Autowired
     private RobberRepository robberRepository;
-    @Autowired
-    private CompanyRepository companyRepository;
+
 
 
     public Robber save(Robber robber){
-        return RobberRepository.save(robber);
+        return robberRepository.save(robber);
     }
 
     public  Robber findRobberById(Long id){
