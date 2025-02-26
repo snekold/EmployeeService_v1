@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Компания</title>
+    <style>
+        /* Общие настройки */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/img/bg.jpg') no-repeat center center fixed; /* Фоновое изображение */
+            background-size: cover; /* Масштабирование фона */
+            color: #fff; /* Цвет текста */
+        }
+
+        /* Шапка */
+        header {
+            background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный фон */
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        /* Навигация */
+        nav {
+            background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный фон */
+            display: flex;
+            justify-content: center; /* Центрирование элементов по горизонтали */
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff; /* Цвет ссылок */
+            text-decoration: none; /* Убираем подчеркивание */
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease; /* Плавный переход цвета */
+        }
+
+        nav a:hover {
+            background-color: #ff6347; /* Изменение цвета при наведении */
+        }
+
+        /* Основной контент */
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- Шапка -->
+<header>
+    <h1>World Company</h1>
+</header>
+
+<!-- Навигация -->
+<nav>
+    <a href="/company/add-company">Добавление компании</a>
+    <a href="/employees/add">Добавление сотрудника</a>
+    <a href="/company">Статистика компании</a>
+    <a href="/sanction">Ввести санкции</a>
+</nav>
+
+<!-- Основной контент -->
+<main>
+    <p>Добро пожаловать в систему управления компанией!</p>
+</main>
+</body>
+</html>

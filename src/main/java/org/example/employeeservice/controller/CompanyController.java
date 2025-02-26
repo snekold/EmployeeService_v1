@@ -20,7 +20,7 @@ public class CompanyController {
     private CompanyService companyService;
 
 
-    @GetMapping("")
+    @GetMapping()
     public String company(Model model) {
         List<Company> allCompany = companyService.getAllCompany();
         model.addAttribute("companies", allCompany);
