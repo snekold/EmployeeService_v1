@@ -9,6 +9,14 @@
             display: flex;
         }
 
+
+        h1{
+            text-align: center;
+            margin-bottom: 50px;
+            text-decoration-style: wavy ;
+        }
+
+
         /* Меню справа */
         .sidebar {
             width: 200px;
@@ -17,7 +25,7 @@
             position: fixed;
             right: 0;
             top: 0;
-            height: 100vh;
+            height: 200vh;
             border-left: 2px solid #ccc;
         }
 
@@ -47,6 +55,7 @@
             color: white;
             border: none;
             cursor: pointer;
+            margin-bottom: 40px;
         }
 
         .button:hover {
@@ -57,7 +66,7 @@
 <body>
 
 <div class="content">
-    <h1>Employee List</h1>
+    <h1>Срисок сотрудиков</h1>
     <table>
         <thead>
         <tr>
@@ -84,6 +93,7 @@
 <div class="sidebar">
     <h3>Меню</h3>
     <a class="button" href="/employees/add"> Добавить сотрудника</a>
+    <br>
     <a class="button" href="/president-info"> Статистика президентов</a>
 </div>
 
