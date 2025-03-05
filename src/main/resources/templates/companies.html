@@ -4,62 +4,91 @@
     <meta charset="UTF-8">
     <title>Компании</title>
     <style>
-        /* Общие стили */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 50px auto;
+        .content {
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto; /* Центрируем контейнер */
         }
 
-        .title {
-            text-align: center;
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        /* Стили таблицы */
-        .company-table {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin: 20px 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        .company-table th,
-        .company-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+        th, td {
+            padding: 12px 20px;
+            border: 1px solid #e0e0e0;
         }
 
-        .company-table th {
+        th {
             background-color: #f2f2f2;
-            color: #333;
-            font-weight: bold;
+            font-weight: 600;
         }
 
-        .company-table tr:hover {
-            background-color: #f9f9f9;
+        /* Стили для меню */
+        .menu {
+            background-color: #d88847;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            justify-content: center; /* Центрируем кнопки */
         }
 
-        /* Дополнительные стили */
-        .company-table td:nth-child(1) {
-            text-align: center;
-            font-weight: bold;
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 24px; /* Круглые углы */
+            background-color: #c79c38;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .menu a:hover,
+        .menu a:focus {
+            background-color: rgba(57, 189, 40, 0.87);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .menu a.active {
+            background-color: rgba(57, 189, 40, 0.87);
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        /* Добавим отступы между заголовком и таблицей */
+        .content h1 {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
+
+<div class="menu">
+    <a href="/employees/add" class="menu-item">Добавить сотрудника</a>
+    <a href="/president-info" class="menu-item active ">Статистика компаний</a>
+    <a href="/president-info" class="menu-item ">Список моих сотрудников</a>
+</div>
+
+
+
 <div class="container">
     <h1 class="title">Список компаний</h1>
     <table class="company-table">
