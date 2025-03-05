@@ -96,12 +96,18 @@
             <th>Имя сотрудника</th>
             <th>Должность</th>
             <th>Зарплата</th>
-            <th>Компания</th>
         </tr>
         </thead>
+
         <tbody>
-        <!-- Данные Thymeleaf -->
+        <tr th:each="employee, iterStat : ${employees}">
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.jobTitle}"></td>
+            <td th:text="${employee.salary} + ' ₽'"></td>
+        </tr>
         </tbody>
+
     </table>
 </div>
 
