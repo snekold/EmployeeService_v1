@@ -17,7 +17,8 @@ public class SchedulerResetLimitCountEmployee {
     @Autowired
     private CompanyService companyService;
 
-    @Scheduled(fixedRate = 15000)
+    //@Scheduled(fixedRate = 3600000)
+    @Scheduled(fixedRate = 10000)
     public void reset(){
         List<Company> allCompany = companyService.getAllCompany();
 

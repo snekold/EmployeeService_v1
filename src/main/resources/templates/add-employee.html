@@ -68,6 +68,11 @@
             text-align: center; /* Центрирование ошибки */
         }
 
+        .message_added{
+            color: #099111;
+            text-align: center; /* Центрирование ошибки */
+        }
+
         .submit-button:hover {
             background-color: #218838;
         }
@@ -138,6 +143,10 @@
         </div>
         <div class="error">
             <label th:text="${message}"></label>
+        </div>
+
+        <div th:if="${message_added != null}" class="message_added">
+            <label th:text="${message_added}"></label>
         </div>
     </form>
 </div>

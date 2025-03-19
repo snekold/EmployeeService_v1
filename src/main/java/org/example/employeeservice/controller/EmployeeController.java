@@ -1,11 +1,11 @@
 package org.example.employeeservice.controller;
 
 
-
 import org.example.employeeservice.model.Company;
 import org.example.employeeservice.model.Employee;
 import org.example.employeeservice.repository.CompanyRepository;
 import org.example.employeeservice.repository.EmployeeRepository;
+import org.example.employeeservice.service.CompanyService;
 import org.example.employeeservice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class EmployeeController {
     @Autowired
-    private CompanyRepository companyRepository;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private CompanyService companyService;
 
     @Autowired
     private EmployeeService employeeService;
@@ -32,10 +31,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    public String employees(@PathVariable long id, Model model) {
-        //
+    public String employees(@PathVariable(name = "id") long id_company, Model model) {
+        Company company = companyService.findCompanyById(id_company);
+        List<Employee> employees = company.getEmployees();
 
-        return "employees";
+        model.addAttribute("employees", employees);
+        return "company-info";
     }
 
 
@@ -49,7 +50,7 @@ public class EmployeeController {
     ) {
         //добавление сотрудника в компанию
         System.out.println(name_company);
-        Company company = companyRepository.findByName(name_company);
+        Company company = companyService.findByName(name_company);
 
         //проверка что компания not существует
         if (company == null) {
@@ -64,7 +65,7 @@ public class EmployeeController {
         }
 
         // check count added employee this day
-        if (company.getCountAddEmployeeThisDay() >= 3){
+        if (company.getCountAddEmployeeThisDay() >= 3) {
             model.addAttribute("message", "Вы добавили уже сегодня 3 сотрудников.Не нарушайте!");
             return "add-employee";
         }
@@ -77,12 +78,14 @@ public class EmployeeController {
         employee.setCompany(company);
 
         //прибавить 1 к добавленным сотрудникам за текущий день (нужно для проверки лимита 3 сотрудника в день)
-        company.plusCouny();
+        company.plusCount();
 
 
-        companyRepository.save(company);
-        employeeRepository.save(employee);
+        companyService.save(company);
+        employeeService.save(employee);
 
+
+        model.addAttribute("message_added","Сотрудник добавлен с зарплатой " + employee.getSalary() +  " rub");
         return "add-employee";
     }
 

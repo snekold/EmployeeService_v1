@@ -112,7 +112,7 @@
             <td th:text="${company.employees.size()}"></td>
             <td th:text="${company.robots.size()}"></td>
             <td>
-                <a th:href="/employees/${company.id}">Подробнее</a>
+                <a th:href="@{/employees/{id}(id=${company.id})}">Подробнее</a>
             </td>
 
         </tr>

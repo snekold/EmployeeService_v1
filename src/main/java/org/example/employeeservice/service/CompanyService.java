@@ -53,6 +53,10 @@ public class CompanyService  {
         }
     }
 
+    public Company findByName(String nameCompany) {
+        return companyRepository.findByName(nameCompany);
+    }
+
     //метод обнуления который получит так же из репозитория все компании и сросит их кол-во сотрудников добавленных в день на 0
 
 }
