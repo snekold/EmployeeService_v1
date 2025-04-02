@@ -27,7 +27,7 @@ public class CompanyService  {
     }
 
     //R all
-    public List<Company> TakeAllCompany(){
+    public List<Company> getAllCompany(){
         return companyRepository.findAll();
     }
 

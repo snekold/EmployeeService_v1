@@ -10,12 +10,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/company")
 public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
+
+
+    @GetMapping()
+    public String company(Model model) {
+        List<Company> allCompany = companyService.getAllCompany();
+        model.addAttribute("companies", allCompany);
+
+        return "companies";
+    }
+
 
 
     @GetMapping("/add-company")
@@ -38,8 +50,6 @@ public class CompanyController {
 
         companyService.save(company);
         model.addAttribute("isAdd", true);
-
-
         return "add_company";
     }
 

@@ -7,12 +7,12 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #dacf88;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
         }
 
         .form-container {
@@ -21,6 +21,8 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 400px;
+            margin: 0 auto; /* Добавлено для горизонтального центрирования */
+            margin-top: 20px; /* Смещение от меню */
         }
 
         h1 {
@@ -60,17 +62,58 @@
             cursor: pointer;
             font-size: 16px;
         }
-        .error{
+
+        .error {
             color: darkred;
+            text-align: center; /* Центрирование ошибки */
         }
 
         .submit-button:hover {
             background-color: #218838;
         }
+
+        /* Стили для меню (оставлены без изменений) */
+        .menu {
+            background-color: #d88847;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            background-color: #c79c38;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .menu a:hover,
+        .menu a:focus {
+            background-color: rgba(57, 189, 40, 0.87);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .menu a.active {
+            background-color: rgba(57, 189, 40, 0.87);
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
     </style>
 </head>
 <body>
+<div class="menu">
+    <a href="/employees/add" class="menu-item active">Добавить сотрудника</a>
+    <a href="/president-info" class="menu-item ">Статистика компаний</a>
+    <a href="/president-info" class="menu-item">Список моих сотрудников</a>
+</div>
 
+<!-- Форма теперь по центру -->
 <div class="form-container">
     <h1>Добавить сотрудника</h1>
     <form th:action="@{/employees/add}" method="post">
@@ -86,21 +129,16 @@
             <label for="name_company">Компания</label>
             <input type="text" id="name_company" name="name_company" placeholder="Компания" required>
         </div>
-
         <div class="form-group">
             <label for="password_company">Пароль Компании</label>
             <input type="password" id="password_company" name="password_company" placeholder="Ваш пароль компании" required>
         </div>
-
-
         <div class="form-group">
             <button type="submit" class="submit-button">Add Employee</button>
         </div>
-
         <div class="error">
             <label th:text="${message}"></label>
         </div>
-
     </form>
 </div>
 

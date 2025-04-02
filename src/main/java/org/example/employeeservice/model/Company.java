@@ -27,6 +27,9 @@ public class Company { //class для компаний
     @OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
     private List<Robot> robots = new ArrayList<>();
 
+    public  void plusCouny(){
+       countAddEmployeeThisDay++;
+    }
 
 
 }

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Employee List</title>
+    <title>Компании</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,31 +10,8 @@
             padding: 0;
             min-height: 100vh;
             display: flex;
-<<<<<<< HEAD
-        }
-
-
-        h1{
-            text-align: center;
-            margin-bottom: 50px;
-            text-decoration-style: wavy ;
-        }
-
-
-        /* Меню справа */
-        .sidebar {
-            width: 200px;
-            background-color: #f4f4f4;
-            padding: 20px;
-            position: fixed;
-            right: 0;
-            top: 0;
-            height: 200vh;
-            border-left: 2px solid #ccc;
-=======
             flex-direction: column;
             background-color: #f5f5f5;
->>>>>>> master
         }
 
         .content {
@@ -74,11 +51,6 @@
 
         .menu a {
             color: white;
-<<<<<<< HEAD
-            border: none;
-            cursor: pointer;
-            margin-bottom: 40px;
-=======
             text-decoration: none;
             padding: 12px 24px;
             border-radius: 24px; /* Круглые углы */
@@ -86,7 +58,6 @@
             transition: all 0.3s ease;
             font-weight: 500;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
->>>>>>> master
         }
 
         .menu a:hover,
@@ -112,48 +83,41 @@
 
 <div class="menu">
     <a href="/employees/add" class="menu-item">Добавить сотрудника</a>
-    <a href="/president-info" class="menu-item">Статистика компаний</a>
-    <a href="/president-info" class="menu-item active">Список моих сотрудников</a>
+    <a href="/president-info" class="menu-item active ">Статистика компаний</a>
+    <a href="/president-info" class="menu-item ">Список моих сотрудников</a>
 </div>
 
-<div class="content">
-<<<<<<< HEAD
-    <h1>Срисок сотрудиков</h1>
-=======
-    <h1>Сотрудники компаний</h1>
->>>>>>> master
-    <table>
+
+
+<div class="container">
+    <h1 class="title">Список компаний</h1>
+    <table class="company-table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Имя сотрудника</th>
-            <th>Должность</th>
-            <th>Зарплата</th>
+            <th>#</th>
+            <th>Название компании</th>
+            <th>Президент</th>
+            <th>Баланс</th>
+            <th>Количество сотрудников</th>
+            <th>Количество роботов</th>
+            <th>действия</th>
         </tr>
         </thead>
-
         <tbody>
-        <tr th:each="employee, iterStat : ${employees}">
-            <td th:text="${employee.id}"></td>
-            <td th:text="${employee.name}"></td>
-            <td th:text="${employee.jobTitle}"></td>
-            <td th:text="${employee.salary} + ' ₽'"></td>
+        <tr th:each="company, iterStat : ${companies}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${company.name}"></td>
+            <td th:text="${company.president}"></td>
+            <td th:text="${company.balance} + ' ₽'"></td>
+            <td th:text="${company.employees.size()}"></td>
+            <td th:text="${company.robots.size()}"></td>
+            <td>
+                <a th:href="/employees/${company.id}">Подробнее</a>
+            </td>
+
         </tr>
         </tbody>
-
     </table>
 </div>
-
-<<<<<<< HEAD
-<div class="sidebar">
-    <h3>Меню</h3>
-    <a class="button" href="/employees/add"> Добавить сотрудника</a>
-    <br>
-    <a class="button" href="/president-info"> Статистика президентов</a>
-</div>
-
-
-=======
->>>>>>> master
 </body>
 </html>
