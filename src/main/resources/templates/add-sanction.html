@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Sanction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group:last-child {
+            text-align: center;
+        }
+
+        .submit-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .error {
+            color: darkred;
+            text-align: center;
+        }
+
+        .submit-button:hover {
+            background-color: #c82333;
+        }
+
+        .menu {
+            background-color: #d88847;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            background-color: #c79c38;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .menu a:hover,
+        .menu a:focus {
+            background-color: rgba(57, 189, 40, 0.87);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .menu a.active {
+            background-color: rgba(57, 189, 40, 0.87);
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+<div class="menu">
+    <a href="/employees/add" class="menu-item">Добавить сотрудника</a>
+    <a href="/president-info" class="menu-item">Статистика компаний</a>
+    <a href="/president-info" class="menu-item">Список моих сотрудников</a>
+    <a href="/add-sanction" class="menu-item active">Ввести санкцию</a>
+</div>
+
+<div class="form-container">
+    <h1>Ввести санкцию</h1>
+    <form th:action="@{/add-sanction}" method="post">
+        <div class="form-group">
+            <label for="issuingCompany">Ваша компания</label>
+            <input type="text" id="issuingCompany" name="issuingCompany" placeholder="Название вашей компании" required>
+        </div>
+        <div class="form-group">
+            <label for="companyPassword">Пароль компании</label>
+            <input type="password" id="companyPassword" name="companyPassword" placeholder="Пароль вашей компании" required>
+        </div>
+        <div class="form-group">
+            <label for="targetCompany">Компания-нарушитель</label>
+            <input type="text" id="targetCompany" name="targetCompany" placeholder="Компания, против которой вводится санкция" required>
+        </div>
+        <div class="form-group">
+            <label for="sanctionAmount">Сумма санкции</label>
+            <input type="number" id="sanctionAmount" name="sanctionAmount" placeholder="Сумма в рублях" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="submit-button">Ввести санкцию</button>
+        </div>
+        <div class="error">
+            <label th:text="${message}"></label>
+        </div>
+    </form>
+</div>
+</body>
+</html>
