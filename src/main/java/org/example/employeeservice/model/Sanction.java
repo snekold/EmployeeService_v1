@@ -5,6 +5,7 @@ import lombok.Data;
 
 
 @Data
+@Entity
 public class Sanction {
 
     @Id
@@ -12,9 +13,6 @@ public class Sanction {
     private Long id;
     private String fromCompany;
     private String toCompany;
-
-
-    private int companyPassword;
     private int sanctionSum;
 
 
