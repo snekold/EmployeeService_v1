@@ -18,24 +18,15 @@ public class SanctionService {
 
 
 
-    public Company findSanctionsByName(String name){
-
-//
-//        Optional<Company> optionalCompany  = companyRepository.findByName(name);
-//        if (optionalCompany.isPresent()){
-//            Company company = optionalCompany.get();
-//            return company;
-//        }
-//        return null;
-    }
 
 
 
+    //допистать добавление санкции
     public void addSanction(Sanction sanction) {
 
     }
 
-    public void takeSanction(Sanction sanction) {
+    //получение санкции по id
 
-    }
+    //получение санкций всех
 }
