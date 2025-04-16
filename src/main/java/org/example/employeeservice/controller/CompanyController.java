@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -23,7 +25,14 @@ public class CompanyController {
     @GetMapping()
     public String company(Model model) {
         List<Company> allCompany = companyService.getAllCompany();
-        model.addAttribute("companies", allCompany);
+
+
+        List<Company> companyList = allCompany.stream()
+                .sorted(Comparator.comparing(Company::getBalance).reversed())
+                .toList();
+
+
+        model.addAttribute("companies", companyList);
 
         return "companies";
     }

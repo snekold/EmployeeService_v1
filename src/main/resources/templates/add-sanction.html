@@ -135,8 +135,8 @@
         <div class="form-group">
             <button type="submit" class="submit-button">Ввести санкцию</button>
         </div>
-        <div class="error">
-            <label th:text="${message}"></label>
+        <div class="error" th:if="${error != null}">
+            <label th:text="${error}"></label>
         </div>
     </form>
 </div>
