@@ -7,6 +7,7 @@ import org.example.employeeservice.repository.CompanyRepository;
 import org.example.employeeservice.repository.SanctionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,10 +24,18 @@ public class SanctionService {
 
     //допистать добавление санкции
     public void addSanction(Sanction sanction) {
-
+       sanctionRepository.save(sanction);
     }
 
-    //получение санкции по id
 
+    //получение санкции по id
+    public Sanction getById(Long id){
+       Sanction sanction =  sanctionRepository.findById(id).get();
+        return sanction;
+    }
     //получение санкций всех
+    public List<Sanction> getAllSanctions(){
+        List<Sanction> sanctionList = sanctionRepository.findAll();
+        return sanctionList;
+    }
 }

@@ -2,6 +2,7 @@ package org.example.employeeservice.controller;
 
 import lombok.AllArgsConstructor;
 import org.example.employeeservice.model.Company;
+import org.example.employeeservice.model.Sanction;
 import org.example.employeeservice.service.CompanyService;
 import org.example.employeeservice.service.SanctionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 public class SanctionController {
@@ -18,10 +21,19 @@ public class SanctionController {
     private SanctionService sanctionService;
     private CompanyService companyService;
 
+
+    @GetMapping("/sanctions")
+    public String sanction(Model model){
+        List<Sanction> allSanctions = sanctionService.getAllSanctions();
+        model.addAttribute("sanctions",allSanctions);
+        return  "sanctions";
+    }
+
     @GetMapping("/add-sanction")
     public String addSanction() {
         return "add-sanction";
     }
+
 
 
     @PostMapping("/add-sanction")
@@ -32,6 +44,7 @@ public class SanctionController {
             @RequestParam Long sanctionAmount,// сумма санкции
             Model model
     ) {
+        //получение компании по имени (компания которая хочет ввести санкции)
         Company company = companyService.findByName(nameCompany);
 
         if (company == null) {
@@ -51,7 +64,10 @@ public class SanctionController {
         }
 
 
+        //получение компании против которой идет ввод санкции
        Company companyTarget =  companyService.findByName(targetCompany);
+
+
         if (companyTarget == null) {
             model.addAttribute("error","Компания против которой вы вводите санкции не существует");
             return "add-sanction";
