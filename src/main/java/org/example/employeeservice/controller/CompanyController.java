@@ -44,6 +44,8 @@ public class CompanyController {
         return "add_company";
     }
 
+   @GetMapping("/president-info")
+   public String presidentInfo(){ return "president-info";}
 
     @PostMapping("/addCompany")
     public String addCompany(@RequestParam String name,
