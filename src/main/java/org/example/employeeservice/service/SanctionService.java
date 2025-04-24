@@ -21,7 +21,6 @@ public class SanctionService {
 
 
 
-
     //допистать добавление санкции
     public void addSanction(Sanction sanction) {
        sanctionRepository.save(sanction);
