@@ -13,7 +13,8 @@ public class Sanction {
     private Long id;
     private String fromCompany;
     private String toCompany;
-    private int sanctionSum;
+    private long sanctionSum;
+    private Boolean sanctionStatus;
 
 
 }

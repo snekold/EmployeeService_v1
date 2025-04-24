@@ -76,7 +76,13 @@ public class SanctionController {
 
         //илья
         //создать объект санкции и внетдрить в него все необходимое и сохранить в бд через санктион репозиторий
+            Sanction sanction = new Sanction();
+         sanction.setSanctionSum(sanctionAmount);
+         sanction.setToCompany(targetCompany);
+         sanction.setFromCompany(nameCompany);
 
+
+        sanctionService.addSanction(sanction);
 
 
         return "add-sanction";
