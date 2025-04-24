@@ -12,7 +12,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public Integer getRandomSalary() {
+    public Integer getRandomSalary() {//Метод который делает рандом зп
         Random rand = new Random();
         int randomCount = rand.nextInt(1,10);
 

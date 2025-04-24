@@ -17,40 +17,38 @@ import java.util.List;
 public class SchedulerEmployee {
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyService companyService;//Внедрение Сервиса Компании
     @Autowired
-    private SanctionService sanctionService;
+    private SanctionService sanctionService;//Внедрение Сервиса Санкции
 
     //@Scheduled(fixedRate = 3600б000)
-    @Scheduled(fixedRate = 10000)
-    public void updateCompanyBalance(){
-        List<Company> allCompany = companyService.getAllCompany();
+    @Scheduled(fixedRate = 10000)   //Время через сколько будет обновляться баланс
+    public void updateCompanyBalance(){//Метод для обновления баланса
+        List<Company> allCompany = companyService.getAllCompany();//Получение вссех компаний
 
-        for (Company company : allCompany) {
-            List<Employee> employees = company.getEmployees();
+        for (Company company : allCompany) {//Цикл фор который проходиться по листу allompany
+            List<Employee> employees = company.getEmployees();//Получаем все компании после фора
 
-            int sumAllSalary = 0;
-            for (Employee employee : employees) {
-               sumAllSalary += employee.getSalary();
+            int sumAllSalary = 0;//Создаем переменную с суммой зарплаты
+            for (Employee employee : employees) {//Проходимся фором по сотрудникам
+               sumAllSalary += employee.getSalary();//складываем сумму с балансом
 
             }
-            company.setBalance(company.getBalance() + sumAllSalary);
-
-            companyService.save(company);
-
+            company.setBalance(company.getBalance() + sumAllSalary);//Добавляем зарплату к балансу
+            companyService.save(company);//Сохраняем изменения баланса компании
 
         }
 
 
 
     }
-    @Scheduled(fixedRate = 3600000)
-    public void useSanction(){
-        List<Sanction> allSanctions = sanctionService.getAllSanctions();
+    @Scheduled(fixedRate = 3600000)//Время через сколько будет применяться санкция
+    public void useSanction(){//Метод применения санкций
+        List<Sanction> allSanctions = sanctionService.getAllSanctions();//Получение всех санкций
 
-        for (Sanction sanction : allSanctions) {
-            if (sanction.getSanctionStatus() == false) {
-                sanction.setSanctionStatus(true);
+        for (Sanction sanction : allSanctions) {//Проходимся фором по санкциям
+            if (sanction.getSanctionStatus() == false) {//Если санкция не работает то фолс
+                sanction.setSanctionStatus(true);//Если работает тру
                 // ИСПОЛНИТЬ САНКЦИЮ
             }
         }

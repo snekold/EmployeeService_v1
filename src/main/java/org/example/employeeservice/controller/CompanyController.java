@@ -19,22 +19,22 @@ import java.util.List;
 public class CompanyController {
 
     @Autowired
-    private CompanyService companyService;
+    private CompanyService companyService; //Внедряем сервис компании
 
 
     @GetMapping()
-    public String company(Model model) {
-        List<Company> allCompany = companyService.getAllCompany();
+    public String company(Model model) { // Содаем метод
+        List<Company> allCompany = companyService.getAllCompany();//Получаем лист компаний
 
 
         List<Company> companyList = allCompany.stream()
                 .sorted(Comparator.comparing(Company::getBalance).reversed())
-                .toList();
+                .toList();//Непонятно что тут с 30 строчки до 32
 
 
-        model.addAttribute("companies", companyList);
+        model.addAttribute("companies", companyList);//Добавляем атрибут компании
 
-        return "companies";
+        return "companies";//Возвращаем компании
     }
 
 
@@ -42,24 +42,24 @@ public class CompanyController {
     @GetMapping("/add-company")
     public String addCompany() {
         return "add_company";
-    }
+    }//Делаем метод добавить компанию
 
    @GetMapping("/president-info")
-   public String presidentInfo(){ return "president-info";}
+   public String presidentInfo(){ return "president-info";}//Информация о владельце
 
-    @PostMapping("/addCompany")
+    @PostMapping("/addCompany")//Делаем пост запрос для добавления компании
     public String addCompany(@RequestParam String name,
                              @RequestParam String president,
                              @RequestParam String password,
                              Model model
     ) {
 
-        Company company = new Company();
+        Company company = new Company();//Делаем объект и параметризируем его
         company.setName(name);
         company.setPresident(president);
         company.setPassword(password);
 
-        companyService.save(company);
+        companyService.save(company);//сохраняем компании в бд(Бд-База Данных)
         model.addAttribute("isAdd", true);
         return "add_company";
     }

@@ -82,7 +82,7 @@ public class SanctionController {
          sanction.setFromCompany(nameCompany);
 
 
-        sanctionService.addSanction(sanction);
+        sanctionService.addSanction(sanction);//в бд сохраняем санкции
 
 
         return "add-sanction";
