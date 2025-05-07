@@ -18,7 +18,7 @@
             padding: 20px;
             flex: 1;
             max-width: 1200px;
-            margin: 0 auto; /* Центрируем контейнер */
+            margin: 0 auto;
         }
 
         table {
@@ -40,20 +40,28 @@
             font-weight: 600;
         }
 
-        /* Стили для меню */
+        tr.accepted {
+            background-color: #d4edda; /* Светло-зелёный */
+        }
+
+        tr.rejected {
+            background-color: #f8d7da; /* Светло-красный */
+        }
+
+        /* Меню */
         .menu {
             background-color: #d88847;
             padding: 15px;
             display: flex;
             gap: 15px;
-            justify-content: center; /* Центрируем кнопки */
+            justify-content: center;
         }
 
         .menu a {
             color: white;
             text-decoration: none;
             padding: 12px 24px;
-            border-radius: 24px; /* Круглые углы */
+            border-radius: 24px;
             background-color: #c79c38;
             transition: all 0.3s ease;
             font-weight: 500;
@@ -73,8 +81,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
 
-        /* Добавим отступы между заголовком и таблицей */
-        .content h1 {
+        h1 {
             margin-bottom: 20px;
         }
     </style>
@@ -96,15 +103,20 @@
             <th>От компании</th>
             <th>К компании</th>
             <th>Сумма санкции (₽)</th>
+            <th>Статус санкции</th>
+            <th>Обработана</th>
             <th>Действия</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="sanction, iterStat : ${sanctions}">
+        <tr th:each="sanction, iterStat : ${sanctions}"
+            th:class="${sanction.sanctionStatus} ? accepted : rejected">
             <td th:text="${iterStat.count}"></td>
             <td th:text="${sanction.fromCompany}"></td>
             <td th:text="${sanction.toCompany}"></td>
             <td th:text="${sanction.sanctionSum} + ' ₽'"></td>
+            <td th:text="${sanction.sanctionStatus} ? 'Принята' : 'Отклонена'"></td>
+            <td th:text="${sanction.isProcessed} ? 'Обработана' : 'В обработке'"></td>
             <td>
                 <a th:href="@{/sanctions/{id}/details(id=${sanction.id})}">Подробнее</a>
             </td>

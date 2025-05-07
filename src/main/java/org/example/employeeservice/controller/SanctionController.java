@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,6 +28,12 @@ public class SanctionController {
         List<Sanction> allSanctions = sanctionService.getAllSanctions();
         model.addAttribute("sanctions",allSanctions);
         return  "sanctions";
+    }
+
+
+    @GetMapping("/sanction/{id}details")
+    public String sanctionDetails(Model model, @PathVariable int id){
+        return "sanctions";
     }
 
     @GetMapping("/add-sanction")
@@ -52,7 +59,6 @@ public class SanctionController {
             return "add-sanction";
         }
 
-
         if (!company.getPassword().equals(companyPassword)) {
             model.addAttribute("error","Пароль компании не совпадает с правильным");
             return "add-sanction";
@@ -65,7 +71,7 @@ public class SanctionController {
 
 
         //получение компании против которой идет ввод санкции
-       Company companyTarget =  companyService.findByName(targetCompany);
+        Company companyTarget =  companyService.findByName(targetCompany);
 
 
         if (companyTarget == null) {
@@ -74,17 +80,13 @@ public class SanctionController {
         }
 
 
-        //илья
-        //создать объект санкции и внетдрить в него все необходимое и сохранить в бд через санктион репозиторий
-            Sanction sanction = new Sanction();
+
+        Sanction sanction = new Sanction();
          sanction.setSanctionSum(sanctionAmount);
          sanction.setToCompany(targetCompany);
          sanction.setFromCompany(nameCompany);
 
-
         sanctionService.addSanction(sanction);//в бд сохраняем санкции
-
-
         return "add-sanction";
     }
 }

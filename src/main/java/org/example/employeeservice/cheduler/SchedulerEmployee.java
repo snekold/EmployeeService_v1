@@ -1,7 +1,6 @@
 package org.example.employeeservice.cheduler;
 
 
-
 import org.example.employeeservice.model.Company;
 import org.example.employeeservice.model.Employee;
 import org.example.employeeservice.model.Sanction;
@@ -12,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Random;
 
 @Component
 public class SchedulerEmployee {
@@ -21,9 +21,12 @@ public class SchedulerEmployee {
     @Autowired
     private SanctionService sanctionService;//Внедрение Сервиса Санкции
 
+
+    Random random = new Random();
+
     //@Scheduled(fixedRate = 3600б000)
     @Scheduled(fixedRate = 10000)   //Время через сколько будет обновляться баланс
-    public void updateCompanyBalance(){//Метод для обновления баланса
+    public void updateCompanyBalance() {//Метод для обновления баланса
         List<Company> allCompany = companyService.getAllCompany();//Получение вссех компаний
 
         for (Company company : allCompany) {//Цикл фор который проходиться по листу allompany
@@ -31,25 +34,48 @@ public class SchedulerEmployee {
 
             int sumAllSalary = 0;//Создаем переменную с суммой зарплаты
             for (Employee employee : employees) {//Проходимся фором по сотрудникам
-               sumAllSalary += employee.getSalary();//складываем сумму с балансом
+                sumAllSalary += employee.getSalary();//складываем сумму с балансом
 
             }
             company.setBalance(company.getBalance() + sumAllSalary);//Добавляем зарплату к балансу
             companyService.save(company);//Сохраняем изменения баланса компании
 
         }
-
-
-
     }
-    @Scheduled(fixedRate = 3600000)//Время через сколько будет применяться санкция
-    public void useSanction(){//Метод применения санкций
+
+
+    @Scheduled(fixedRate = 20000)//Время через сколько будет применяться санкция
+    public void useSanction() {//Метод применения санкций
+
         List<Sanction> allSanctions = sanctionService.getAllSanctions();//Получение всех санкций
 
         for (Sanction sanction : allSanctions) {//Проходимся фором по санкциям
-            if (sanction.getSanctionStatus() == false) {//Если санкция не работает то фолс
-                sanction.setSanctionStatus(true);//Если работает тру
-                // ИСПОЛНИТЬ САНКЦИЮ
+            if (!sanction.isProcessed()) {//Если санкция не обработана
+
+                boolean randomBul = random.nextBoolean();
+
+                if (randomBul) {//исполнение санкции если ранадом true
+                    Company fromCompany = companyService.findByName(sanction.getFromCompany());
+                    Company toCompany = companyService.findByName(sanction.getToCompany());
+                    sanction.setSanctionStatus(true);//исполнилась
+
+                    long sanctionSum = sanction.getSanctionSum();
+                    toCompany.setBalance(toCompany.getBalance() - sanctionSum);
+                    fromCompany.setBalance(fromCompany.getBalance() + sanctionSum);
+
+                    companyService.save(fromCompany);
+                    companyService.save(toCompany);
+
+                    sanction.setProcessed(true);
+                    sanction.setSanctionStatus(true);
+                    sanctionService.addSanction(sanction);
+                } else { //отклонение санкции
+                    sanction.setSanctionStatus(false);
+                    sanction.setProcessed(true);
+                    sanctionService.addSanction(sanction);
+                }
+
+
             }
         }
     }

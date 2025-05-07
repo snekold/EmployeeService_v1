@@ -15,6 +15,7 @@ public class Company { //class для компаний
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
     private String president;
     private int countAddEmployeeThisDay;
