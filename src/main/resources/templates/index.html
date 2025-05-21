@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Компания</title>
@@ -13,14 +13,14 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: url('/img/bg.jpg') no-repeat center center fixed; /* Фоновое изображение */
-            background-size: cover; /* Масштабирование фона */
-            color: #fff; /* Цвет текста */
+            background: url('/img/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
         }
 
         /* Шапка */
         header {
-            background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный фон */
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
             text-align: center;
         }
@@ -32,23 +32,23 @@
 
         /* Навигация */
         nav {
-            background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный фон */
+            background-color: rgba(0, 0, 0, 0.8);
             display: flex;
-            justify-content: center; /* Центрирование элементов по горизонтали */
+            justify-content: center;
             padding: 10px 0;
         }
 
         nav a {
-            color: #fff; /* Цвет ссылок */
-            text-decoration: none; /* Убираем подчеркивание */
+            color: #fff;
+            text-decoration: none;
             padding: 10px 20px;
             margin: 0 10px;
             border-radius: 5px;
-            transition: background-color 0.3s ease; /* Плавный переход цвета */
+            transition: background-color 0.3s ease;
         }
 
         nav a:hover {
-            background-color: #ff6347; /* Изменение цвета при наведении */
+            background-color: #ff6347;
         }
 
         /* Основной контент */
@@ -56,9 +56,67 @@
             padding: 20px;
             text-align: center;
         }
+
+        /* Таблица лидеров */
+        .top-companies {
+            margin-top: 30px;
+            width: 80%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .top-companies th,
+        .top-companies td {
+            padding: 12px;
+            border-bottom: 1px solid #555;
+        }
+
+        .top-companies thead tr {
+            background-color: #ff6347;
+        }
+
+        .top-companies tbody tr:nth-child(odd) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .top-companies tfoot {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .top-companies .place {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .top-companies .balance {
+            text-align: right;
+        }
+
+        .text{
+            color: #d70650;
+            font-size: 22px;
+        }
     </style>
 </head>
 <body>
+
+<!-- Фоновая музыка -->
+<audio id="backgroundAudio">
+    <source src="/sound/1.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+</audio>
+
+<!-- Управление музыкой -->
+<div style="position: fixed; bottom: 10px; right: 10px; z-index: 1000; display: flex; gap: 10px;">
+    <button onclick="playAudio()" title="Включить музыку">▶️</button>
+    <button onclick="pauseAudio()" title="Остановить музыку">⏸️</button>
+</div>
+
 <!-- Шапка -->
 <header>
     <h1>World Company</h1>
@@ -66,16 +124,61 @@
 
 <!-- Навигация -->
 <nav>
+    <a href="/">Главная</a>
     <a href="/company/add-company">Добавление компании</a>
     <a href="/employees/add">Добавление сотрудника</a>
     <a href="/company">Статистика компаний</a>
     <a href="/company">Мои сотрудники</a>
     <a href="/add-sanction">Ввести санкции</a>
+    <a href="/sanctions" class="menu-item active">Все санкции</a>
 </nav>
 
 <!-- Основной контент -->
 <main>
-    <p>Добро пожаловать в систему управления компанией!</p>
+    <p class="text">Добро пожаловать в систему управления компаниями!</p>
+
+    <!-- Топ 3 компании -->
+    <section>
+        <h2 style="font-size: 28px; margin: 30px 0 20px;">🏆 Топ 3 компании</h2>
+        <table class="top-companies">
+            <thead>
+            <tr>
+                <th>Место</th>
+                <th>Название</th>
+                <th>Президент</th>
+                <th>Баланс</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="company, iterStat : ${companies}">
+                <td class="place" th:text="${iterStat.count}">1</td>
+                <td th:text="${company.name}">Google Inc.</td>
+                <td th:text="${company.president}">Ларри Пейдж</td>
+                <td class="balance" th:text="${#numbers.formatInteger(company.balance, 3, 'POINT')} + ' ₽'">9999999 ₽</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
 </main>
+
+<script>
+    const audio = document.getElementById("backgroundAudio");
+
+    function playAudio() {
+        audio.volume = 0.5;
+        audio.play()
+            .then(() => console.log("Музыка запущена"))
+            .catch(err => {
+                alert("Не удалось воспроизвести музыку. Пожалуйста, взаимодействуйте со страницей (например, кликните).");
+                console.error("Ошибка воспроизведения:", err);
+            });
+    }
+
+    function pauseAudio() {
+        audio.pause();
+        console.log("Музыка остановлена");
+    }
+</script>
+
 </body>
 </html>
