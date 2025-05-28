@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Employee</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Добавить сотрудника</title>
     <style>
+        /* Base styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -15,86 +16,25 @@
             background-color: #f5f5f5;
         }
 
-        .form-container {
-            background-color: #ffffff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            margin: 0 auto; /* Добавлено для горизонтального центрирования */
-            margin-top: 20px; /* Смещение от меню */
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        .form-group:last-child {
-            text-align: center;
-        }
-
-        .submit-button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .error {
-            color: darkred;
-            text-align: center; /* Центрирование ошибки */
-        }
-
-        .message_added{
-            color: #099111;
-            text-align: center; /* Центрирование ошибки */
-        }
-
-        .submit-button:hover {
-            background-color: #218838;
-        }
-
-        /* Стили для меню (оставлены без изменений) */
         .menu {
             background-color: #d88847;
-            padding: 15px;
+            padding: 10px 15px;
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .menu a {
             color: white;
             text-decoration: none;
-            padding: 12px 24px;
+            padding: 10px 16px;
             border-radius: 24px;
             background-color: #c79c38;
             transition: all 0.3s ease;
             font-weight: 500;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 14px;
         }
 
         .menu a:hover,
@@ -107,24 +47,143 @@
         .menu a.active {
             background-color: rgba(57, 189, 40, 0.87);
             color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        /* Гамбургер и мобильное меню */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            padding: 10px 15px;
+        }
+
+        .mobile-menu {
+            display: none;
+            background-color: #d88847;
+            flex-direction: column;
+            padding: 10px 0;
+        }
+
+        .mobile-menu a {
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                display: none;
+                flex-direction: column;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu.active {
+                display: flex;
+            }
+        }
+
+        /* Form styles */
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-button:hover {
+            background-color: #218838;
+        }
+
+        .error,
+        .message_added {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .error {
+            color: darkred;
+        }
+
+        .message_added {
+            color: #099111;
         }
     </style>
 </head>
 <body>
+
+<!-- Mobile Menu Button -->
+<button class="mobile-menu-btn" id="menuToggle">☰ Меню</button>
+
+<!-- Desktop Menu -->
 <div class="menu">
-    <nav>
+    <nav id="desktopMenu">
         <a href="/">Главная</a>
         <a href="/company/add-company">Добавление компании</a>
         <a href="/employees/add">Добавление сотрудника</a>
         <a href="/company">Статистика компаний</a>
-        <a href="/company">Мои сотрудники</a>
         <a href="/add-sanction">Ввести санкции</a>
-        <a href="/sanctions" class="menu-item active">Все санкции</a>
+        <a href="/sanctions" class="active">Все санкции</a>
     </nav>
 </div>
 
-<!-- Форма теперь по центру -->
+<!-- Mobile Dropdown Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="/">Главная</a>
+    <a href="/company/add-company">Добавление компании</a>
+    <a href="/employees/add">Добавление сотрудника</a>
+    <a href="/company">Статистика компаний</a>
+    <a href="/add-sanction">Ввести санкции</a>
+    <a href="/sanctions">Все санкции</a>
+</div>
+
+<!-- Form -->
 <div class="form-container">
     <h1>Добавить сотрудника</h1>
     <form th:action="@{/employees/add}" method="post">
@@ -150,12 +209,21 @@
         <div class="error">
             <label th:text="${message}"></label>
         </div>
-
         <div th:if="${message_added != null}" class="message_added">
             <label th:text="${message_added}"></label>
         </div>
     </form>
 </div>
+
+<script>
+    // Toggle mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+    });
+</script>
 
 </body>
 </html>

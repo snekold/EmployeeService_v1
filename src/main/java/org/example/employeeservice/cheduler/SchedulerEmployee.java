@@ -22,7 +22,7 @@ public class SchedulerEmployee {
     private SanctionService sanctionService;//Внедрение Сервиса Санкции
 
 
-    Random random = new Random();
+    Random random = new Random();   
 
     //@Scheduled(fixedRate = 3600б000)
     @Scheduled(fixedRate = 60_000*1)   //Время через сколько будет обновляться баланс
@@ -53,13 +53,13 @@ public class SchedulerEmployee {
             if (!sanction.isProcessed()) {//Если санкция не обработана
 
                 boolean randomBul = random.nextBoolean();
-
+                Company fromCompany = companyService.findByName(sanction.getFromCompany());
+                Company toCompany = companyService.findByName(sanction.getToCompany());
+                long sanctionSum = sanction.getSanctionSum();
                 if (randomBul) {//исполнение санкции если ранадом true
-                    Company fromCompany = companyService.findByName(sanction.getFromCompany());
-                    Company toCompany = companyService.findByName(sanction.getToCompany());
                     sanction.setSanctionStatus(true);//исполнилась
 
-                    long sanctionSum = sanction.getSanctionSum();
+
                     toCompany.setBalance(toCompany.getBalance() - sanctionSum);
                     fromCompany.setBalance(fromCompany.getBalance() + sanctionSum);
 
@@ -73,6 +73,9 @@ public class SchedulerEmployee {
                     sanction.setSanctionStatus(false);
                     sanction.setProcessed(true);
                     sanctionService.addSanction(sanction);
+
+                    fromCompany.setBalance(fromCompany.getBalance()-sanctionSum);
+                    companyService.save(fromCompany);
                 }
 
 
