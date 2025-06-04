@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Компания</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         /* Общие настройки */
         * {
@@ -16,68 +18,138 @@
             background: url('/img/bg.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
+            overflow-x: hidden;
         }
 
-        /* Шапка */
-        header {
+        /* Header with menu */
+        .header {
             background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        header h1 {
-            font-size: 36px;
-            margin: 0;
-        }
-
-        /* Навигация */
-        nav {
-            background-color: rgba(0, 0, 0, 0.8);
+        .menu-wrapper {
             display: flex;
             justify-content: center;
-            padding: 10px 0;
+            flex-grow: 1;
         }
 
-        nav a {
-            color: #fff;
+        nav.menu {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav.menu a {
+            color: white;
             text-decoration: none;
-            padding: 10px 20px;
-            margin: 0 10px;
+            padding: 10px 15px;
+            margin: 5px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            font-size: 16px;
         }
 
-        nav a:hover {
-            background-color: #ff6347;
+        nav.menu a:hover {
+            background-color: #8a1b04;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            flex-direction: column;
+            width: 90%;
+            max-width: 240px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .dropdown-menu a {
+            padding: 14px 20px;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            nav.menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
         }
 
         /* Основной контент */
         main {
             padding: 20px;
             text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .text {
+            color: #d70650;
+            font-size: 20px;
+            margin-bottom: 20px;
         }
 
         /* Таблица лидеров */
         .top-companies {
             margin-top: 30px;
-            width: 80%;
+            width: 90%;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             border-collapse: collapse;
             background-color: rgba(0, 0, 0, 0.7);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            color: #fff;
+            color: #FFD700; /* Золотой цвет текста */
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         .top-companies th,
         .top-companies td {
             padding: 12px;
             border-bottom: 1px solid #555;
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.6); /* Светящийся эффект */
         }
 
         .top-companies thead tr {
-            background-color: #ff6347;
+            background-color: rgba(38, 158, 13, 0.71);
         }
 
         .top-companies tbody tr:nth-child(odd) {
@@ -97,10 +169,161 @@
             text-align: right;
         }
 
-        .text{
-            color: #d70650;
-            font-size: 22px;
+        /* Блок "Как играть" */
+        .game-rules {
+            background-color: rgba(0, 0, 0, 0.8); /* Темно-серый с прозрачностью */
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 700px;
+            margin: 30px auto;
+            text-align: center;
+            line-height: 1.6;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); /* Эфект света */
+            font-family: 'Georgia', serif;
+            transition: transform 0.3s ease;
         }
+
+        .game-rules:hover {
+            transform: scale(1.02); /* Лёгкий эффект увеличения */
+        }
+
+        .game-rules h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.7); /* Золотое свечение */
+        }
+
+        .game-rules p {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .game-rules ul {
+            list-style: disc inside;
+            text-align: left;
+            display: inline-block;
+            margin-top: 10px;
+            max-width: 500px;
+        }
+
+        .game-rules li {
+            margin-bottom: 8px;
+        }
+
+        /* Цитата */
+        .quote-box {
+            background-color: rgba(255, 215, 0, 0.15); /* Золотистый полупрозрачный фон */
+            border-left: 5px solid #FFD700; /* Золотая линия слева */
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ffd700;
+            text-align: center;
+            font-size: 18px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 24px;
+            }
+
+            nav.menu a {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .text {
+                font-size: 18px;
+            }
+
+            .top-companies {
+                font-size: 14px;
+            }
+
+            .game-rules {
+                padding: 20px;
+            }
+        }
+
+        /* Управление музыкой */
+        .audio-controls {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .audio-controls button {
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        /* Анимация денег */
+        .money-fall {
+            position: fixed;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .bill {
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            background: green;
+            border-radius: 5px;
+            background-image: linear-gradient(to right, #00ff00, #00cc00);
+            animation-name: fall;
+            animation-timing-function: linear;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+
+        .text {
+            color: #9e0d2a; /* Темно-красный цвет */
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 3px rgba(150, 0, 0, 0.6);
+            font-weight: bold;
+        }
+
+        /* Анимация мерцания */
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 5px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.6);
+            }
+            50% {
+                opacity: 0.6;
+                text-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 0.8);
+            }
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 5px rgba(255, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.6);
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -112,7 +335,7 @@
 </audio>
 
 <!-- Управление музыкой -->
-<div style="position: fixed; bottom: 10px; right: 10px; z-index: 1000; display: flex; gap: 10px;">
+<div class="audio-controls">
     <button onclick="playAudio()" title="Включить музыку">▶️</button>
     <button onclick="pauseAudio()" title="Остановить музыку">⏸️</button>
 </div>
@@ -123,14 +346,29 @@
 </header>
 
 <!-- Навигация -->
-<nav>
+<div class="header">
+    <div class="menu-wrapper">
+        <nav class="menu">
+            <a href="/">Главная</a>
+            <a href="/company/add-company">Добавление компании</a>
+            <a href="/employees/add">Добавление сотрудника</a>
+            <a href="/company">Статистика компаний</a>
+            <a href="/add-sanction">Ввести санкции</a>
+            <a href="/sanctions" class="active">Все санкции</a>
+        </nav>
+    </div>
+    <button class="mobile-menu-btn" id="menuToggle">☰</button>
+</div>
+
+<!-- Mobile dropdown menu -->
+<div class="dropdown-menu" id="dropdownMenu">
     <a href="/">Главная</a>
     <a href="/company/add-company">Добавление компании</a>
     <a href="/employees/add">Добавление сотрудника</a>
     <a href="/company">Статистика компаний</a>
     <a href="/add-sanction">Ввести санкции</a>
-    <a href="/sanctions" class="menu-item active">Все санкции</a>
-</nav>
+    <a href="/sanctions">Все санкции</a>
+</div>
 
 <!-- Основной контент -->
 <main>
@@ -138,7 +376,7 @@
 
     <!-- Топ 3 компании -->
     <section>
-        <h2 style="font-size: 28px; margin: 30px 0 20px;">🏆 Топ 3 компании</h2>
+        <h2 style="font-size: 24px; margin: 30px 0 20px;">🏆 Топ 3 компании</h2>
         <table class="top-companies">
             <thead>
             <tr>
@@ -157,6 +395,27 @@
             </tr>
             </tbody>
         </table>
+    </section>
+
+    <!-- Как играть -->
+    <section class="game-rules">
+        <h2>Как играть?</h2>
+        <p><strong>World Company</strong> — это экономическая стратегия, где ты управляешь своей компанией.</p>
+        <ul>
+            <li>Добавляй компанию и задавай пароль для защиты.</li>
+            <li>Нанимай сотрудников (не более 3 в день).</li>
+            <li>Зарабатывай деньги через развитие бизнеса.</li>
+            <li>Используй санкции против конкурентов.</li>
+            <li>Если санкция прошла - ты спишешь с баланса конкурента себе.</li>
+            <li>Если санкция Не прошла - спишут с твоего баланса компании.</li>
+            <li>Следи за рейтингом компаний и стремись к первому месту!</li>
+        </ul>
+
+        <!-- Цитата -->
+        <div class="quote-box">
+            &laquo;Если бы я ждал идеального момента, Starbucks так бы и остался мечтой.&raquo;<br>
+            <strong>— Говард Шульц (Starbucks)</strong>
+        </div>
     </section>
 </main>
 
@@ -177,6 +436,40 @@
         audio.pause();
         console.log("Музыка остановлена");
     }
+
+    // Toggle mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    menuToggle.addEventListener('click', () => {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!menuToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+</script>
+
+<!-- Анимация денег -->
+<div class="money-fall" id="moneyContainer"></div>
+
+<script>
+    function createBill() {
+        const bill = document.createElement('div');
+        bill.classList.add('bill');
+        bill.style.left = Math.random() * window.innerWidth + 'px';
+        bill.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        bill.style.width = (Math.random() * 20 + 30) + 'px';
+        bill.style.height = (Math.random() * 10 + 20) + 'px';
+
+        document.getElementById('moneyContainer').appendChild(bill);
+
+        setTimeout(() => bill.remove(), 6000);
+    }
+
+    setInterval(createBill, 300); // каждые 300 мс появляется новая купюра
 </script>
 
 </body>
