@@ -32,4 +32,9 @@ public class MenuController {
         model.addAttribute("companies", companiesList);
         return "index";
     }
+
+    @GetMapping("/authors")
+    public String Authors(Model model) {
+        return "authors";
+    }
 }

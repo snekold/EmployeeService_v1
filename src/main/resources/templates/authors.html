@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Об авторах</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/img/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header with menu */
+        .header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-wrapper {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        nav.menu {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav.menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        nav.menu a:hover {
+            background-color: #ff6347;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            flex-direction: column;
+            width: 90%;
+            max-width: 240px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .dropdown-menu a {
+            padding: 14px 20px;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            nav.menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Основной контент */
+        main {
+            padding: 40px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .about-section {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .about-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.6);
+        }
+
+        .about-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #f0f0f0;
+        }
+
+        .telegram-button {
+            margin-top: 30px;
+        }
+
+        .telegram-button a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #0088cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .telegram-button a:hover {
+            background-color: #006bb3;
+        }
+
+        /* Анимация денег */
+        .money-fall {
+            position: fixed;
+            top: -100px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .bill {
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            background: green;
+            border-radius: 5px;
+            background-image: linear-gradient(to right, #00ff00, #00cc00);
+            animation-name: fall;
+            animation-timing-function: linear;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Управление музыкой */
+        .audio-controls {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .audio-controls button {
+            padding: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Фоновая музыка -->
+<audio id="backgroundAudio">
+    <source src="/sound/1.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+</audio>
+
+<!-- Управление музыкой -->
+<div class="audio-controls">
+    <button onclick="playAudio()" title="Включить музыку">▶️</button>
+    <button onclick="pauseAudio()" title="Остановить музыку">⏸️</button>
+</div>
+
+<!-- Шапка -->
+<header>
+    <h1>World Company</h1>
+</header>
+
+<!-- Навигация -->
+<div class="header">
+    <div class="menu-wrapper">
+        <nav class="menu">
+            <a href="/">Главная</a>
+            <a href="/company/add-company">Добавление компании</a>
+            <a href="/employees/add">Добавление сотрудника</a>
+            <a href="/company">Статистика компаний</a>
+            <a href="/add-sanction">Ввести санкции</a>
+            <a href="/sanctions">Все санкции</a>
+            <a href="/authors" class="active">Авторы</a>
+        </nav>
+    </div>
+    <button class="mobile-menu-btn" id="menuToggle">☰</button>
+</div>
+
+<!-- Mobile dropdown menu -->
+<div class="dropdown-menu" id="dropdownMenu">
+    <a href="/">Главная</a>
+    <a href="/company/add-company">Добавление компании</a>
+    <a href="/employees/add">Добавление сотрудника</a>
+    <a href="/company">Статистика компаний</a>
+    <a href="/add-sanction">Ввести санкции</a>
+    <a href="/sanctions">Все санкции</a>
+    <a href="/authors" class="active">Авторы</a>
+</div>
+
+<!-- Main Content -->
+<main>
+    <h2>Об авторах проекта</h2>
+
+    <div class="about-section">
+        <h2>Кто создал World Company?</h2>
+        <p><strong>World Company</strong> — это мини-игра-симулятор экономики, созданная для обучения и развлечения.</p>
+        <p>Проект был разработан командой энтузиастов, увлеченных веб-разработкой и бизнес-стратегиями.</p>
+        <p><strong>Основные авторы:</strong></p>
+        <ul style="text-align: left; display: inline-block; text-align: left; list-style: disc inside; padding-left: 20px;">
+            <li><strong>Илья</strong> бекенд, дизайн, логика игры </li>
+            <li><strong>Михаил</strong> бекенд, дизайн, логика игры </li>
+            <li><strong>Егор kilka</strong>– бекенд, дизайн, документация</li>
+            <li><strong>Maks music </strong> – звуки, анимации, документация</li>
+        </ul>
+        <p>Спасибо за то, что играешь в нашу игру!</p>
+
+        <!-- Кнопка перехода в Telegram -->
+        <div class="telegram-button">
+            <a href="https://t.me/+QDaNdrPuY-lkZTNi"  target="_blank">Перейти в Telegram канал</a>
+        </div>
+    </div>
+</main>
+
+<script>
+    const audio = document.getElementById("backgroundAudio");
+
+    function playAudio() {
+        audio.volume = 0.5;
+        audio.play()
+            .then(() => console.log("Музыка запущена"))
+            .catch(err => {
+                alert("Не удалось воспроизвести музыку. Пожалуйста, взаимодействуйте со страницей (например, кликните).");
+                console.error("Ошибка воспроизведения:", err);
+            });
+    }
+
+    function pauseAudio() {
+        audio.pause();
+        console.log("Музыка остановлена");
+    }
+
+    // Toggle mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    menuToggle.addEventListener('click', () => {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!menuToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+
+    // Анимация падения купюр
+    function createBill() {
+        const bill = document.createElement('div');
+        bill.classList.add('bill');
+        bill.style.left = Math.random() * window.innerWidth + 'px';
+        bill.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        bill.style.width = (Math.random() * 20 + 30) + 'px';
+        bill.style.height = (Math.random() * 10 + 20) + 'px';
+
+        document.getElementById('moneyContainer').appendChild(bill);
+
+        setTimeout(() => bill.remove(), 6000);
+    }
+
+    setInterval(createBill, 300); // каждые 300 мс появляется новая купюра
+</script>
+
+<!-- Анимация денег -->
+<div class="money-fall" id="moneyContainer"></div>
+
+</body>
+</html>

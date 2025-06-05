@@ -225,6 +225,7 @@
     <a href="/company">Статистика компаний</a>
     <a href="/add-sanction">Ввести санкции</a>
     <a href="/sanctions">Все санкции</a>
+    <a href="/authors" class="active">Авторы</a>
 </div>
 
 <!-- Main Content -->
@@ -247,7 +248,7 @@
             <td class="place" data-label="место" th:text="${iterStat.count}"></td>
             <td class="company-name" data-label="Название компании" th:text="${company.name}"></td>
             <td data-label="Президент" th:text="${company.president}"></td>
-            <td data-label="Баланс" th:text="${company.balance} + ' ₽'"></td>
+            <td data-label="Баланс" th:text="${company.balance} + ' B-coin'"></td>
             <td data-label="Сотрудники" th:text="${company.employees.size()}"></td>
             <td data-label="Роботы" th:text="${company.robots.size()}"></td>
             <td data-label="Действия">

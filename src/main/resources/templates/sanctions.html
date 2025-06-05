@@ -223,6 +223,7 @@
     <a href="/company">Статистика компаний</a>
     <a href="/add-sanction">Ввести санкции</a>
     <a href="/sanctions">Все санкции</a>
+    <a href="/authors" class="active">Авторы</a>
 </div>
 
 <!-- Main Content -->
@@ -245,9 +246,10 @@
             <td data-label="#" th:text="${iterStat.count}"></td>
             <td data-label="От компании" th:text="${sanction.fromCompany}"></td>
             <td data-label="К компании" th:text="${sanction.toCompany}"></td>
-            <td data-label="Сумма" th:text="${sanction.sanctionSum} + ' ₽'"></td>
+            <td data-label="Сумма" th:text="${sanction.sanctionSum} + 'B-coin'"></td>
             <td data-label="Статус" th:text="${sanction.sanctionStatus} ? 'Принята' : 'Отклонена'"></td>
             <td data-label="Обработана" th:text="${sanction.isProcessed} ? 'Да' : 'Нет'"></td>
+
         </tr>
         </tbody>
     </table>

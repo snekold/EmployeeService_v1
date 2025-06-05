@@ -17,10 +17,10 @@ public class EmployeeService {
         int randomCount = rand.nextInt(1,10);
 
         if(randomCount == 1){
-            return rand.nextInt(2000,5000);
+            return rand.nextInt(500,1000);
         }
 
-        return rand.nextInt(100,1000);
+        return rand.nextInt(10,300);
     }
 
 

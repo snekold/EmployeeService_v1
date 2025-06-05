@@ -85,7 +85,7 @@ public class EmployeeController {
         employeeService.save(employee);
 
 
-        model.addAttribute("message_added","Сотрудник добавлен с зарплатой " + employee.getSalary() +  " rub");
+        model.addAttribute("message_added","Сотрудник добавлен с зарплатой " + employee.getSalary() +  " B-coin");
         return "add-employee";
     }
 
