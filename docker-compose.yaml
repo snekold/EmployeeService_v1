@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "443:8443"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/company_db
+      SPRING_DATASOURCE_USERNAME: gladiator17
+      SPRING_DATASOURCE_PASSWORD: angelina17
+      SPRING_SSL_KEYSTORE: file:/app/ssh/keystore.p12 # Путь к keystore внутри контейнера
+      SPRING_SSL_KEYSTORE_PASSWORD: 123452111  # Укажи пароль для keystore
+      SPRING_SSL_KEY_ALIAS: mycert  # Имя сертификата
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: company_db
+      POSTGRES_USER: gladiator17
+      POSTGRES_PASSWORD: angelina17
+    ports:
+      - "5555:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
