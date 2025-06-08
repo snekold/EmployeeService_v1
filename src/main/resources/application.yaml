@@ -1,15 +1,33 @@
+server:
+
+  port: 8080
+
+#  servlet:
+#    context-path: /myapp
 spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
   application:
-    name: EmployeeService_v1
+    name: EmployeeService
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
     driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/lesson_db
+    password: postgres
+    username: postgres
 
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
-server:
-  port: 7071
+  data:
+    jdbc:
+      dialect: postgresql
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.yourpackage: INFO

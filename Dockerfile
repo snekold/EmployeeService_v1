@@ -4,7 +4,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Копируем JAR файл в контейнер
-COPY UniversityTime-0.0.1-SNAPSHOT.jar /app/web-project.jar
+COPY EmployeeService-0.0.1-SNAPSHOT.jar /app/web-project.jar
 
 # Копируем сертификаты из папки ssh в контейнер
 COPY ssh /app/ssh
