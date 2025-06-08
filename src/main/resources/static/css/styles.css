@@ -1,0 +1,312 @@
+/* General settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('/img/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Navigation */
+nav {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 15px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+nav a:hover {
+    background-color: #ff6347;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Tables */
+.top-companies {
+    margin: 30px auto;
+    width: 95%;
+    max-width: 800px;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    color: #fff;
+    overflow-x: auto;
+    display: block;
+}
+
+.top-companies table {
+    width: 100%;
+    min-width: 500px;
+}
+
+.top-companies th,
+.top-companies td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #555;
+}
+
+.top-companies thead tr {
+    background-color: #ff6347;
+}
+
+.top-companies tbody tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.top-companies tfoot {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.top-companies .place {
+    text-align: center;
+    font-weight: bold;
+}
+
+.top-companies .balance {
+    text-align: right;
+}
+
+/* Forms */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #ff6347;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #ff4125;
+}
+
+.text {
+    color: #d70650;
+    font-size: 1.4rem;
+    margin: 20px 0;
+}
+
+/* Audio controls */
+.audio-controls {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.audio-controls button {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    nav {
+        padding: 5px 0;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a {
+        width: 100%;
+        text-align: center;
+        margin: 2px 0;
+    }
+
+    .top-companies {
+        font-size: 0.9rem;
+        margin: 15px auto;
+        width: 98%;
+    }
+
+    .top-companies th,
+    .top-companies td {
+        padding: 8px 4px;
+        white-space: nowrap;
+    }
+
+    .text {
+        font-size: 1.2rem;
+    }
+
+    .form-container {
+        width: 95%;
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    body {
+        background-size: contain;
+        background-position: top center;
+    }
+}
+
+/* Small screens */
+@media screen and (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    .top-companies {
+        font-size: 0.8rem;
+        margin: 10px auto;
+    }
+
+    .text {
+        font-size: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+        padding: 12px 15px;
+    }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 360px) {
+    header h1 {
+        font-size: 1rem;
+    }
+
+    .nav-container a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .top-companies {
+        font-size: 0.75rem;
+        margin: 5px auto;
+    }
+
+    .form-container {
+        width: 98%;
+        padding: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 6px;
+        font-size: 0.9rem;
+    }
+
+    .text {
+        font-size: 0.9rem;
+    }
+
+    body {
+        background-attachment: scroll;
+    }
+
+    .btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .top-companies th,
+    .top-companies td {
+        padding: 6px 3px;
+    }
+}
+
+/* Стили для сообщений */
+.message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.message.success {
+    background-color: rgba(40, 167, 69, 0.2);
+}
+
+.message.error {
+    background-color: rgba(220, 53, 69, 0.2);
+} 
