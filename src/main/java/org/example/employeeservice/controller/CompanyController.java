@@ -21,6 +21,28 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService; //Внедряем сервис компании
 
+    @GetMapping("/admin")
+    public String companyAdminPanel(@RequestParam(name = "password") String password,Model model){
+        List<Company> allCompany = companyService.getAllCompany();//Получаем лист компаний
+        List<Company> companyList = allCompany.stream()
+                .sorted(Comparator.comparing(Company::getBalance).reversed())
+                .toList();//Непонятно что тут с 30 строчки до 32
+
+        if (password.equals("admin-zero")){
+            model.addAttribute("companies", companyList);//Добавляем атрибут компании
+            return "company-admin";
+        }else {
+            model.addAttribute("companies", companyList);//Добавляем атрибут компании
+            return "companies";
+        }
+    }
+
+
+    @GetMapping("/{id}/delete")
+    public String company(@PathVariable Long id) { // Содаем метод
+       companyService.deleteCompanyById(id);//Получаем лист компаний
+        return "redirect:/company";
+    }
 
     @GetMapping()
     public String company(Model model) { // Содаем метод

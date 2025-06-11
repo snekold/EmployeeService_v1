@@ -15,7 +15,7 @@ public class Employee { //КЛАСС СОТРУДНИКОВ
     private String jobTitle;
     private int salary;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_company")
     private Company company;
 

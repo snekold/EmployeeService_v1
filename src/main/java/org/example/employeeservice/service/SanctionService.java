@@ -1,12 +1,14 @@
 package org.example.employeeservice.service;
 
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.util.PropertySource;
 import org.example.employeeservice.model.Company;
 import org.example.employeeservice.model.Sanction;
 import org.example.employeeservice.repository.CompanyRepository;
 import org.example.employeeservice.repository.SanctionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,7 @@ public class SanctionService {
     //получение санкций всех
     public List<Sanction> getAllSanctions(){
         List<Sanction> sanctionList = sanctionRepository.findAll();
+        sanctionList.sort(Comparator.comparing(Sanction::getId).reversed());
         return sanctionList;
     }
 }

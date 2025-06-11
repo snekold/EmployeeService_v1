@@ -36,8 +36,8 @@ public class CompanyService  {
 
 
     //D
-    public void  deleteCompany(Company company){
-        companyRepository.delete(company);
+    public void  deleteCompanyById(Long id){
+        companyRepository.deleteById(id);
     }
 
     // U PUT
