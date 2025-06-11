@@ -20,7 +20,9 @@ public class CompanyService  {
         return companyRepository.save(company);
     }
 
-
+    public List<Company> saveAll(List<Company> companys) {
+        return companyRepository.saveAll(companys);
+    }
     //R
     public Company findCompanyById(Long id) {
         Optional<Company> company =  companyRepository.findById(id);

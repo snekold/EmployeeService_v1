@@ -69,6 +69,11 @@ public class SanctionController {
             return "add-sanction";
         }
 
+        if (sanctionAmount <= 0) {
+            model.addAttribute("error","За это можно и Бан получить!");
+            return "add-sanction";
+        }
+
 
         //получение компании против которой идет ввод санкции
         Company companyTarget =  companyService.findByName(targetCompany);

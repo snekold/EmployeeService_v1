@@ -13,7 +13,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: angelina17
       SPRING_SSL_KEYSTORE: file:/app/ssh/keystore.p12 # Путь к keystore внутри контейнера
       SPRING_SSL_KEYSTORE_PASSWORD: 123452111  # Укажи пароль для keystore
-      SPRING_SSL_KEY_ALIAS: mycert  # Имя сертификата
+      SPRING_SSL_KEY_ALIAS: myalias  # Имя сертификата
     networks:
       - app-network
 
