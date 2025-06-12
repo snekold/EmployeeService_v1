@@ -234,6 +234,15 @@
 <!-- Main Content -->
 <div class="content">
     <h1>Список санкций</h1>
+    
+    <!-- Таймер обновления -->
+    <div class="update-timer" style="text-align: center; margin-bottom: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 8px;">
+        <p style="margin: 0; font-size: 16px;">
+            Следующее обновление санкций через: 
+            <span id="countdown" style="font-weight: bold; color: #d88847;"></span>
+        </p>
+    </div>
+
     <table class="sanction-table">
         <thead>
         <tr>
@@ -302,19 +311,38 @@
 </div>
 
 <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-
-    menuToggle.addEventListener('click', () => {
+    // Mobile menu toggle
+    document.getElementById('menuToggle').addEventListener('click', function() {
+        const dropdownMenu = document.getElementById('dropdownMenu');
         dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!menuToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.style.display = 'none';
+    // Обратный отсчет
+    function updateCountdown() {
+        const nextUpdateTime = [[${nextUpdateTime}]]; // Время следующего обновления в миллисекундах
+        
+        function updateDisplay() {
+            const now = Date.now();
+            const timeLeft = Math.max(0, Math.floor((nextUpdateTime - now) / 1000));
+            
+            if (timeLeft <= 0) {
+                window.location.reload();
+                return;
+            }
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('countdown').textContent = 
+                `${minutes}:${seconds.toString().padStart(2, '0')}`;
         }
-    });
+        
+        // Обновляем отображение каждую секунду
+        updateDisplay();
+        setInterval(updateDisplay, 1000);
+    }
+
+    // Запускаем обратный отсчет при загрузке страницы
+    document.addEventListener('DOMContentLoaded', updateCountdown);
 </script>
 
 </body>

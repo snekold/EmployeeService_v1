@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Controller
@@ -22,6 +25,7 @@ public class SanctionController {
 
     private SanctionService sanctionService;
     private CompanyService companyService;
+    private static final long SCHEDULER_INTERVAL = 60_000; // 1 минута в миллисекундах
 
     @GetMapping("/sanctions")
     public String sanction(
@@ -33,6 +37,15 @@ public class SanctionController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", sanctionsPage.getTotalPages());
         model.addAttribute("totalItems", sanctionsPage.getTotalElements());
+        
+        // Вычисляем время до следующего запуска шедулера
+        long currentTimeMillis = System.currentTimeMillis();
+        long nextSchedulerTime = ((currentTimeMillis / SCHEDULER_INTERVAL) + 1) * SCHEDULER_INTERVAL;
+        long timeUntilNextUpdate = (nextSchedulerTime - currentTimeMillis) / 1000; // в секундах
+        
+        model.addAttribute("timeUntilNextUpdate", timeUntilNextUpdate);
+        model.addAttribute("nextUpdateTime", nextSchedulerTime);
+        
         return "sanctions";
     }
 
