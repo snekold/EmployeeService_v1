@@ -6,6 +6,7 @@ import org.example.employeeservice.model.Sanction;
 import org.example.employeeservice.service.CompanyService;
 import org.example.employeeservice.service.SanctionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +23,18 @@ public class SanctionController {
     private SanctionService sanctionService;
     private CompanyService companyService;
 
-
     @GetMapping("/sanctions")
-    public String sanction(Model model){
-        List<Sanction> allSanctions = sanctionService.getAllSanctions();
-        model.addAttribute("sanctions",allSanctions);
-        return  "sanctions";
+    public String sanction(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+        Page<Sanction> sanctionsPage = sanctionService.getSanctionsWithPagination(page, size);
+        model.addAttribute("sanctions", sanctionsPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", sanctionsPage.getTotalPages());
+        model.addAttribute("totalItems", sanctionsPage.getTotalElements());
+        return "sanctions";
     }
-
 
     @GetMapping("/sanction/{id}details")
     public String sanctionDetails(Model model, @PathVariable int id){
@@ -40,8 +45,6 @@ public class SanctionController {
     public String addSanction() {
         return "add-sanction";
     }
-
-
 
     @PostMapping("/add-sanction")
     public String addSanctionPost(
@@ -74,17 +77,13 @@ public class SanctionController {
             return "add-sanction";
         }
 
-
         //получение компании против которой идет ввод санкции
         Company companyTarget =  companyService.findByName(targetCompany);
-
 
         if (companyTarget == null) {
             model.addAttribute("error","Компания против которой вы вводите санкции не существует");
             return "add-sanction";
         }
-
-
 
         Sanction sanction = new Sanction();
          sanction.setSanctionSum(sanctionAmount);

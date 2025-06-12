@@ -259,6 +259,46 @@
         </tr>
         </tbody>
     </table>
+
+    <!-- Пагинация -->
+    <div class="pagination" style="margin-top: 20px; text-align: center;">
+        <div class="pagination-info" style="margin-bottom: 10px;">
+            Страница <span th:text="${currentPage + 1}"></span> из <span th:text="${totalPages}"></span>
+            (Всего записей: <span th:text="${totalItems}"></span>)
+        </div>
+        <div class="pagination-controls">
+            <!-- Кнопка "Предыдущая" -->
+            <a th:if="${currentPage > 0}" 
+               th:href="@{/sanctions(page=${currentPage - 1}, size=10)}"
+               class="pagination-btn" 
+               style="display: inline-block; padding: 8px 16px; margin: 0 4px; background-color: #d88847; color: white; text-decoration: none; border-radius: 4px;">
+                Предыдущая
+            </a>
+            
+            <!-- Номера страниц -->
+            <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a th:if="${i != currentPage}"
+                   th:href="@{/sanctions(page=${i}, size=10)}"
+                   class="pagination-btn"
+                   style="display: inline-block; padding: 8px 16px; margin: 0 4px; background-color: #d88847; color: white; text-decoration: none; border-radius: 4px;">
+                    <span th:text="${i + 1}"></span>
+                </a>
+                <span th:if="${i == currentPage}"
+                      class="pagination-btn active"
+                      style="display: inline-block; padding: 8px 16px; margin: 0 4px; background-color: #c79c38; color: white; border-radius: 4px;">
+                    <span th:text="${i + 1}"></span>
+                </span>
+            </span>
+            
+            <!-- Кнопка "Следующая" -->
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/sanctions(page=${currentPage + 1}, size=10)}"
+               class="pagination-btn"
+               style="display: inline-block; padding: 8px 16px; margin: 0 4px; background-color: #d88847; color: white; text-decoration: none; border-radius: 4px;">
+                Следующая
+            </a>
+        </div>
+    </div>
 </div>
 
 <script>

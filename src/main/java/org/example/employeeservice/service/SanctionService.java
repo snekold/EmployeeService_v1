@@ -6,6 +6,10 @@ import org.example.employeeservice.model.Company;
 import org.example.employeeservice.model.Sanction;
 import org.example.employeeservice.repository.CompanyRepository;
 import org.example.employeeservice.repository.SanctionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -40,5 +44,11 @@ public class SanctionService {
         List<Sanction> sanctionList = sanctionRepository.findAll();
         sanctionList.sort(Comparator.comparing(Sanction::getId).reversed());
         return sanctionList;
+    }
+
+    //получение санкций с пагинацией
+    public Page<Sanction> getSanctionsWithPagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        return sanctionRepository.findAll(pageable);
     }
 }
