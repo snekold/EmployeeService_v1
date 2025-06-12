@@ -21,6 +21,9 @@ public class Company { //class для компаний
     private int countAddEmployeeThisDay;
     private String password;
     private long balance;
+    
+    @Column(name = "creator_ip")
+    private String creatorIp;
 
     @OneToMany(mappedBy = "company",fetch = FetchType.EAGER)
     private List<Employee> employees = new ArrayList<>();

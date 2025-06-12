@@ -1,7 +1,6 @@
 package org.example.employeeservice.controller;
 
-
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.employeeservice.model.Company;
 import org.example.employeeservice.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,21 +69,38 @@ public class CompanyController {
    public String presidentInfo(){ return "president-info";}//Информация о владельце
 
     @PostMapping("/addCompany")//Делаем пост запрос для добавления компании
-    public String addCompany(@RequestParam String name,
-                             @RequestParam String president,
-                             @RequestParam String password,
-                             Model model
+    public String addCompany(
+            @RequestParam String name,
+            @RequestParam String president,
+            @RequestParam String password,
+            HttpServletRequest request,
+            Model model
     ) {
+        // Получаем IP адрес клиента
+        String clientIp = getClientIp(request);
+        
+        // Проверяем, не создавал ли этот IP уже компанию
+        if (companyService.existsByCreatorIp(clientIp)) {
+            model.addAttribute("error", "Вы уже создавали компанию в этом сезоне.Можно создать только одну компанию.");
+            return "add_company";
+        }
 
-        Company company = new Company();//Делаем объект и параметризируем его
+        Company company = new Company();
         company.setName(name);
         company.setPresident(president);
         company.setPassword(password);
+        company.setCreatorIp(clientIp);
 
-        companyService.save(company);//сохраняем компании в бд(Бд-База Данных)
+        companyService.save(company);
         model.addAttribute("isAdd", true);
         return "add_company";
     }
 
-
+    private String getClientIp(HttpServletRequest request) {
+        String xForwardedFor = request.getHeader("X-Forwarded-For");
+        if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
+            return xForwardedFor.split(",")[0].trim();
+        }
+        return request.getRemoteAddr();
+    }
 }
