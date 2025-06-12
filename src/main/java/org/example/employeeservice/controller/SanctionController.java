@@ -64,6 +64,7 @@ public class SanctionController {
             @RequestParam("issuingCompany") String nameCompany, // имя компании создающей санкцию
             @RequestParam String companyPassword,
             @RequestParam String targetCompany,
+            @RequestParam String message,
             @RequestParam Long sanctionAmount,// сумма санкции
             Model model
     ) {
@@ -102,6 +103,7 @@ public class SanctionController {
          sanction.setSanctionSum(sanctionAmount);
          sanction.setToCompany(targetCompany);
          sanction.setFromCompany(nameCompany);
+         sanction.setMessage(message);
 
         sanctionService.addSanction(sanction);//в бд сохраняем санкции
         return "add-sanction";

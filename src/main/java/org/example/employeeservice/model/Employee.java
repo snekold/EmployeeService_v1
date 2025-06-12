@@ -12,7 +12,6 @@ public class Employee { //КЛАСС СОТРУДНИКОВ
 
     private long id;
     private String name;
-    private String jobTitle;
     private int salary;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
