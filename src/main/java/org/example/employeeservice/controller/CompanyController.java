@@ -19,13 +19,19 @@ public class CompanyController {
 
     @Autowired
     private CompanyService companyService; //Внедряем сервис компании
+    private static final long BALANCE_UPDATE_INTERVAL = 60_000; // 1 минута в миллисекундах
 
     @GetMapping("/admin")
     public String companyAdminPanel(@RequestParam(name = "password") String password,Model model){
         List<Company> allCompany = companyService.getAllCompany();//Получаем лист компаний
         List<Company> companyList = allCompany.stream()
                 .sorted(Comparator.comparing(Company::getBalance).reversed())
-                .toList();//Непонятно что тут с 30 строчки до 32
+                .toList();
+
+        // Вычисляем время до следующего обновления баланса
+        long currentTimeMillis = System.currentTimeMillis();
+        long nextUpdateTime = ((currentTimeMillis / BALANCE_UPDATE_INTERVAL) + 1) * BALANCE_UPDATE_INTERVAL;
+        model.addAttribute("nextBalanceUpdateTime", nextUpdateTime);
 
         if (password.equals("admin-zero")){
             model.addAttribute("companies", companyList);//Добавляем атрибут компании
@@ -50,8 +56,12 @@ public class CompanyController {
 
         List<Company> companyList = allCompany.stream()
                 .sorted(Comparator.comparing(Company::getBalance).reversed())
-                .toList();//Непонятно что тут с 30 строчки до 32
+                .toList();
 
+        // Вычисляем время до следующего обновления баланса
+        long currentTimeMillis = System.currentTimeMillis();
+        long nextUpdateTime = ((currentTimeMillis / BALANCE_UPDATE_INTERVAL) + 1) * BALANCE_UPDATE_INTERVAL;
+        model.addAttribute("nextBalanceUpdateTime", nextUpdateTime);
 
         model.addAttribute("companies", companyList);//Добавляем атрибут компании
 

@@ -43,9 +43,9 @@ public class SchedulerEmployee {
         }
     }
 
-    @Scheduled(cron = "0 0 15 * * *") // Каждый день в 00:00:00
+    @Scheduled(cron = "0 0 3 * * *") // Каждый день в 00:00:00
     public void resetLimitCountEmployee() {//Метод применения санкций
-        List<Company> allCompany = companyService.getAllCompany();//Получение вссех компаний
+        List<Company> allCompany = companyService.getAllCompany();//Получение всех компаний
         for (Company company : allCompany) {
             company.setCountAddEmployeeThisDay(0);
 
