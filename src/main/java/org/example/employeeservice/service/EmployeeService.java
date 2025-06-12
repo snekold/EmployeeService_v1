@@ -15,12 +15,18 @@ public class EmployeeService {
     public Integer getRandomSalary() {//Метод который делает рандом зп
         Random rand = new Random();
         int randomCount = rand.nextInt(1,10);
+        int randomCountVIP = rand.nextInt(1,100);
 
-        if(randomCount == 1){
-            return rand.nextInt(500,1000);
+        if (randomCountVIP == 77){
+            return 1000;
         }
 
-        return rand.nextInt(10,300);
+        if(randomCount == 1){
+            return rand.nextInt(100,300);
+        }
+
+
+        return rand.nextInt(10,100);
     }
 
 
