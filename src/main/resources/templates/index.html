@@ -323,6 +323,23 @@
             }
         }
 
+        /* Существующие стили */
+        .admin-button {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            z-index: 1000;
+        }
+        .admin-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
 
     </style>
 </head>
@@ -476,6 +493,8 @@
 
     setInterval(createBill, 300); // каждые 300 мс появляется новая купюра
 </script>
+
+<a th:href="@{/company/admin-login}" class="admin-button">Админ-панель</a>
 
 </body>
 </html>

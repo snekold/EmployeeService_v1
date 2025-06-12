@@ -198,6 +198,58 @@
         table.company-table td.company-name {
             color: blue;
         }
+
+        /* Добавляем стили для статусов компаний */
+        tr.champion {
+            background: linear-gradient(45deg, #FFD700, #FFF8DC);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            animation: championGlow 2s infinite;
+        }
+
+        tr.silver {
+            background: linear-gradient(45deg, #C0C0C0, #E8E8E8);
+            box-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+        }
+
+        tr.bronze {
+            background: linear-gradient(45deg, #CD7F32, #E6BE8A);
+            box-shadow: 0 0 10px rgba(205, 127, 50, 0.5);
+        }
+
+        @keyframes championGlow {
+            0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.8); }
+            100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .status-badge.champion {
+            background-color: #FFD700;
+            color: #000;
+        }
+
+        .status-badge.silver {
+            background-color: #C0C0C0;
+            color: #000;
+        }
+
+        .status-badge.bronze {
+            background-color: #CD7F32;
+            color: #FFF;
+        }
+
+        .status-badge.none {
+            background-color: #E0E0E0;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -254,15 +306,21 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="company, iterStat : ${companies}">
+        <tr th:each="company, iterStat : ${companies}"
+            th:class="${company.status.name().toLowerCase()}">
             <td class="place" data-label="место" th:text="${iterStat.count}"></td>
-            <td class="company-name" data-label="Название компании" th:text="${company.name}"></td>
+            <td class="company-name" data-label="Название компании">
+                <span th:text="${company.name}"></span>
+                <span th:class="'status-badge ' + ${company.status.name().toLowerCase()}"
+                      th:text="${company.status.displayName}"></span>
+            </td>
             <td data-label="Президент" th:text="${company.president}"></td>
             <td data-label="Баланс" th:text="${company.balance} + ' B-coin'"></td>
             <td data-label="Сотрудники" th:text="${company.employees.size()}"></td>
             <td data-label="Роботы" th:text="${company.robots.size()}"></td>
             <td data-label="Действия">
                 <a th:href="@{/employees/{id}(id=${company.id})}">Подробнее</a>
+
             </td>
         </tr>
         </tbody>

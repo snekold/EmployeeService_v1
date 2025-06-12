@@ -243,6 +243,7 @@
             <th>Роботы</th>
             <th>Действия</th>
             <th>Admin</th>
+            <th>status </th>
         </tr>
         </thead>
         <tbody>
@@ -258,6 +259,23 @@
             </td>
             <td data-label="Admin">
                 <a th:href="@{/company/{id}/delete(id=${company.id})}">Удалить</a>
+            </td>
+            <td>
+            <!-- Форма изменения статуса (только для админа) -->
+            <form th:if="${param.password != null && param.password[0] == 'admin-zero'}"
+                  th:action="@{/company/{id}/update-status(id=${company.id})}"
+                  method="post"
+                  style="display: inline-block;">
+                <input type="hidden" name="password" th:value="${param.password[0]}">
+                <select name="status"
+                        onchange="this.form.submit()"
+                        style="padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="NONE" th:selected="${company.status == T(org.example.employeeservice.model.CompanyStatus).NONE}">Нет статуса</option>
+                    <option value="CHAMPION" th:selected="${company.status == T(org.example.employeeservice.model.CompanyStatus).CHAMPION}">Чемпион</option>
+                    <option value="SILVER" th:selected="${company.status == T(org.example.employeeservice.model.CompanyStatus).SILVER}">Серебро</option>
+                    <option value="BRONZE" th:selected="${company.status == T(org.example.employeeservice.model.CompanyStatus).BRONZE}">Бронза</option>
+                </select>
+            </form>
             </td>
         </tr>
         </tbody>

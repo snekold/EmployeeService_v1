@@ -35,11 +35,9 @@ public class SchedulerEmployee {
             int sumAllSalary = 0;//Создаем переменную с суммой зарплаты
             for (Employee employee : employees) {//Проходимся фором по сотрудникам
                 sumAllSalary += employee.getSalary();//складываем сумму с балансом
-
             }
             company.setBalance(company.getBalance() + sumAllSalary);//Добавляем зарплату к балансу
             companyService.save(company);//Сохраняем изменения баланса компании
-
         }
     }
 

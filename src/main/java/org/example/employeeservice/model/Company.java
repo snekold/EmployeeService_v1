@@ -25,6 +25,10 @@ public class Company { //class для компаний
     @Column(name = "creator_ip")
     private String creatorIp;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private CompanyStatus status = CompanyStatus.NONE;
+
     @OneToMany(mappedBy = "company",fetch = FetchType.EAGER)
     private List<Employee> employees = new ArrayList<>();
 

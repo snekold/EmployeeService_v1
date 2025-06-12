@@ -2,6 +2,7 @@ package org.example.employeeservice.service;
 
 import lombok.AllArgsConstructor;
 import org.example.employeeservice.model.Company;
+import org.example.employeeservice.model.CompanyStatus;
 import org.example.employeeservice.model.Employee;
 import org.example.employeeservice.repository.CompanyRepository;
 import org.springframework.stereotype.Service;
@@ -67,4 +68,26 @@ public class CompanyService {
 //    public Company findCompanyByEnoughtEmployee(Employee employee) {
 //
 //      }
+
+    public void updateCompanyStatuses() {
+        List<Company> companies = companyRepository.findAll();
+        
+        // Сортируем компании по балансу
+        companies.sort((c1, c2) -> Long.compare(c2.getBalance(), c1.getBalance()));
+        
+        // Обновляем статусы
+        for (int i = 0; i < companies.size(); i++) {
+            Company company = companies.get(i);
+            if (i == 0) {
+                company.setStatus(CompanyStatus.CHAMPION);
+            } else if (i == 1) {
+                company.setStatus(CompanyStatus.SILVER);
+            } else if (i == 2) {
+                company.setStatus(CompanyStatus.BRONZE);
+            } else {
+                company.setStatus(CompanyStatus.NONE);
+            }
+            companyRepository.save(company);
+        }
+    }
 }

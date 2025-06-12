@@ -2,6 +2,7 @@ package org.example.employeeservice.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.example.employeeservice.model.Company;
+import org.example.employeeservice.model.CompanyStatus;
 import org.example.employeeservice.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -106,6 +107,24 @@ public class CompanyController {
         return "add_company";
     }
 
+    @PostMapping("/{id}/update-status")
+    public String updateCompanyStatus(
+            @PathVariable Long id,
+            @RequestParam CompanyStatus status,
+            @RequestParam(name = "password") String password
+    ) {
+        if (!"admin-zero".equals(password)) {
+            return "redirect:/company?error=unauthorized";
+        }
+
+        Company company = companyService.findCompanyById(id);
+        if (company != null) {
+            company.setStatus(status);
+            companyService.save(company);
+        }
+        return "redirect:/company";
+    }
+
     private String getClientIp(HttpServletRequest request) {
         String xForwardedFor = request.getHeader("X-Forwarded-For");
         if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
@@ -113,4 +132,14 @@ public class CompanyController {
         }
         return request.getRemoteAddr();
     }
+
+    @GetMapping("/admin-login")
+    public String showAdminLogin() {
+        return "admin-login";
+    }
+
+//    @GetMapping("/admin")
+//    public String adminPanel(@RequestParam String password) {
+//        return "redirect:/company?password=" + password;
+//    }
 }
