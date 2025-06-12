@@ -16,6 +16,7 @@ public class Sanction {
     private long sanctionSum;
     private boolean sanctionStatus; //приминилась ли санкция
     private boolean isProcessed;// обработанна ли санкция
+    private  String message;
 
 
 }

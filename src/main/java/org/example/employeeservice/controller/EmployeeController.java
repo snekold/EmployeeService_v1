@@ -42,7 +42,6 @@ public class EmployeeController {
 
     @PostMapping("/employees/add")
     public String addEmployee(@RequestParam String name,
-                              @RequestParam String jobTitle,
                               @RequestParam String name_company,
                               @RequestParam String password_company,
                               Model model
@@ -73,7 +72,6 @@ public class EmployeeController {
 
         Employee employee = new Employee();
         employee.setName(name);
-        employee.setJobTitle(jobTitle);
         employee.setSalary(employeeService.getRandomSalary());
         employee.setCompany(company);
 
