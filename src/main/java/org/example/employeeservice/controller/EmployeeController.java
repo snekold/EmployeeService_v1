@@ -30,8 +30,8 @@ public class EmployeeController {
         return "add-employee";
     }
 
-    @GetMapping("/employees/{id}")
-    public String employees(@PathVariable(name = "id") long id_company, Model model) {
+    @GetMapping("/employees/{id_company}")
+    public String employees(@PathVariable(name = "id_company") long id_company, Model model) {
         Company company = companyService.findCompanyById(id_company);
         List<Employee> employees = company.getEmployees();
 

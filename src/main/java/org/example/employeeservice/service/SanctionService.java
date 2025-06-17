@@ -21,7 +21,7 @@ import java.util.Optional;
 public class SanctionService {
 
     private SanctionRepository sanctionRepository;
-    private CompanyRepository companyRepository;
+//    private CompanyRepository companyRepository;
 
 
 

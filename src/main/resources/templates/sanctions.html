@@ -259,7 +259,7 @@
             th:class="${!sanction.isProcessed} ? 'pending' : (${sanction.sanctionStatus} ? 'accepted' : 'rejected')">
             <td data-label="#" th:text="${sanction.id}"></td>
             <td data-label="От компании" th:text="${sanction.fromCompany}"></td>
-            <td data-label="К компании" th:text="${sanction.toCompany}"></td>
+            <td data-label="К компании" th:text="${sanction.toCompany}"></td>s
             <td data-label="Сумма" th:text="${sanction.sanctionSum} + 'B-coin'"></td>
             <td data-label="Сообщение" th:text="${sanction.message}"></td>
             <td data-label="Статус"

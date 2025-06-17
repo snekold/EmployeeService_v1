@@ -12,21 +12,22 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public Integer getRandomSalary() {//Метод который делает рандом зп
+    //Метод который делает рандом зп
+    public Integer getRandomSalary() {
         Random rand = new Random();
         int randomCount = rand.nextInt(1,10);
         int randomCountVIP = rand.nextInt(1,100);
 
         if (randomCountVIP == 77){
-            return 1000;
+            return 500;
         }
 
         if(randomCount == 1){
-            return rand.nextInt(100,300);
+            return rand.nextInt(50,100);
         }
 
 
-        return rand.nextInt(10,100);
+        return rand.nextInt(1,30);
     }
 
 

@@ -25,7 +25,7 @@ public class SchedulerEmployee {
     Random random = new Random();   
 
     //@Scheduled(fixedRate = 3600б000)
-    @Scheduled(fixedRate = 60_000*20)   //Время через сколько будет обновляться баланс
+    @Scheduled(fixedRate = 60_000*1)   //Время через сколько будет обновляться баланс
     public void updateCompanyBalance() {//Метод для обновления баланса
         List<Company> allCompany = companyService.getAllCompany();//Получение вссех компаний
 

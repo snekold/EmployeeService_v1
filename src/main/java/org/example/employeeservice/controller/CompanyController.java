@@ -20,7 +20,7 @@ public class CompanyController {
 
     @Autowired
     private CompanyService companyService; //Внедряем сервис компании
-    private static final long BALANCE_UPDATE_INTERVAL = 60_000*10; // 1 минута в миллисекундах
+    private static final long BALANCE_UPDATE_INTERVAL = 60_000*1; // 1 минута в миллисекундах
 
     @GetMapping("/admin")
     public String companyAdminPanel(@RequestParam(name = "password") String password,Model model){
